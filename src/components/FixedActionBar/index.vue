@@ -63,7 +63,7 @@ export default {
     transition: all 0.3s, box-shadow 0.5s;
     box-shadow: 0 0 1px 0 #ccc;
     &.shadow {
-        box-shadow: 0 -10px 10px -10px #ccc;
+        box-shadow: 0 -10px 10px -10px red;
     }
 }
 ::v-deep .el-form-item {

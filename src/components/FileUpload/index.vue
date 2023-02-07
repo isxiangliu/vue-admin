@@ -28,7 +28,7 @@ export default {
     props: {
         action: {
             type: String,
-            required: true
+            default: ''
         },
         headers: {
             type: Object,
@@ -60,7 +60,7 @@ export default {
         },
         ext: {
             type: Array,
-            default: () => ['zip', 'rar']
+            default: () => ['zip', 'rar','jpg','pdf']
         }
     },
     methods: {

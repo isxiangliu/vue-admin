@@ -12,7 +12,7 @@ export default {
     data() {
         return {
             show: false,
-            content: ''
+            content: '55555555'
         }
     },
     mounted() {
