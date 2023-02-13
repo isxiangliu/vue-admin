@@ -328,16 +328,16 @@ header {
     }
     .main-sidebar-container,
     .sub-sidebar-container {
-        // transition: 0.3s;
-        // overflow-x: hidden;
-        // overflow-y: auto;
-        // overscroll-behavior: contain;
-        // // firefox隐藏滚动条
-        // scrollbar-width: none;
-        // // chrome隐藏滚动条
-        // &::-webkit-scrollbar {
-        //     display: none;
-        // }
+        transition: 0.3s;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        // firefox隐藏滚动条
+        scrollbar-width: none;
+        // chrome隐藏滚动条
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
     .main-sidebar-container {
         width: $g-main-sidebar-width;
@@ -450,13 +450,13 @@ header {
             height: 100%;
             flex: auto;
             position: relative;
-            top: 50px;
-            // padding: $g-topbar-height 20px 0;
-            padding: 8px 15px;
+            padding: $g-topbar-height 0 0;
             overflow: hidden;
-            margin: 20px 20px 70px;
-            background-color: #fff;
-            border-radius: 8px;
+            // top: 50px;
+            // padding: 8px 15px;
+            // margin: 20px 20px 70px;
+            // background-color: #fff;
+            // border-radius: 8px;
         }
     }
 }
