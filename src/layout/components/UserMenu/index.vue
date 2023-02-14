@@ -25,7 +25,8 @@
         <el-dropdown class="user-container" @command="handleCommand">
             <div class="user-wrapper">
                 <el-avatar size="medium">
-                    <i class="el-icon-user-solid" />
+                    <!-- <i class="el-icon-phone" /> -->
+                    <img src="@/assets/images/long_user.png" alt="">
                 </el-avatar>
                 {{ $store.state.user.account }}
                 <i class="el-icon-caret-bottom" />
