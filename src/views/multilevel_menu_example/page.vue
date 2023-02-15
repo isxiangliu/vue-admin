@@ -1,6 +1,11 @@
 <template>
   <div>
     <PageMain>
+      <video class="video-bg" playsinline="" autoplay="" muted="" loop="">
+        <source src="@/assets/video/login_bg.mp4" type="video/mp4" />
+      </video>
+    </PageMain>
+    <PageMain>
       <!-- 图标 -->
       <svg-icon name="user" />
       <!-- 权限 -->
@@ -64,6 +69,10 @@ export default {
  <style lang="scss" scoped>
 .svg-icon {
     font-size: 20px;
+}
+.video-bg {
+    width: 100%;
+    height: 100%;
 }
 .nav {
     p {

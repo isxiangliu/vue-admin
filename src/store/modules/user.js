@@ -1,9 +1,8 @@
 import api from '@/api'
+import { login } from '@/api/user'
 
 const state = {
-    account: localStorage.account || '',
     token: localStorage.token || '',
-    failure_time: localStorage.failure_time || '',
     permissions: []
 }
 
@@ -11,33 +10,38 @@ const getters = {
     isLogin: state => {
         let retn = false
         if (state.token) {
-            let unix = Date.parse(new Date())
-            if (unix < state.failure_time * 1000) {
-                retn = true
-            }
+            retn = true
         }
         return retn
     }
 }
 
 const actions = {
-    login({commit}, data) {
+    login({ commit }, data) {
+        const { username, password } = data;
         return new Promise((resolve, reject) => {
-            // 通过 mock 进行登录
-            api.post('mock/member/login', data).then(res => {
-                commit('setUserData', res.data)
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
+            // login({
+            //     grant_type: "password",
+            //     scope: "server",
+            //     username: username,
+            //     password: password,
+            //     rememberMe: false
+            // }).then((res) => {
+            //     commit('setUserData', res)
+            //     resolve(res)
+            // }).catch(error => {
+            //     reject(error)
+            // })
+            commit('setUserData', {'access_token': '9ff0bedf-adb6-436c-9d73-c2e36256a3c8'})
+            resolve({'access_token': '9ff0bedf-adb6-436c-9d73-c2e36256a3c8'})
         })
     },
-    logout({commit}) {
+    logout({ commit }) {
         commit('removeUserData')
-        commit('menu/invalidRoutes', null, {root: true})
+        commit('menu/invalidRoutes', null, { root: true })
     },
     // 获取我的权限
-    getPermissions({state, commit}) {
+    getPermissions({ state, commit }) {
         return new Promise(resolve => {
             // 通过 mock 获取权限
             api.get('mock/member/permission', {
@@ -54,20 +58,12 @@ const actions = {
 
 const mutations = {
     setUserData(state, data) {
-        localStorage.setItem('account', data.account)
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('failure_time', data.failure_time)
-        state.account = data.account
-        state.token = data.token
-        state.failure_time = data.failure_time
+        localStorage.setItem('token', data.access_token)
+        state.token = data.access_token
     },
     removeUserData(state) {
-        localStorage.removeItem('account')
         localStorage.removeItem('token')
-        localStorage.removeItem('failure_time')
-        state.account = ''
         state.token = ''
-        state.failure_time = ''
     },
     setPermissions(state, permissions) {
         state.permissions = permissions

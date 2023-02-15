@@ -132,7 +132,8 @@ router.beforeEach(async(to, from, next) => {
         store.commit('menu/setHeaderActived', to.path)
     }
     to.meta.title && store.commit('settings/setTitle', to.meta.title)
-    if (store.getters['user/isLogin']) {
+    // console.log(store.getters['user/isLogin'],store.state.user.token);
+    if (store.getters['user/isLogin']||store.state.user.token) {
         if (to.name) {
             if (to.matched.length !== 0) {
                 // 如果已登录状态下，进入登录页会强制跳转到控制台页面

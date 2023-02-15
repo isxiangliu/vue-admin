@@ -52,6 +52,7 @@ const cdn = {
 // gzip 相关
 const isGZIP = process.env.VUE_APP_GZIP == 'ON'
 
+const IP = "http://10.1.128.123:5300"
 module.exports = {
     lintOnSave:false,
     publicPath: '',
@@ -59,9 +60,13 @@ module.exports = {
     devServer: {
         open: true,
         // proxy: {
-        //     '/': {
-        //         target: process.env.VUE_APP_API_ROOT,
-        //         changeOrigin: true
+        //     '/webapi': {                 //这里的/webapi表示的意思是以/webapi开头的才生效 ->刷下面的重点
+        //         target: 'http://10.1.128.123:5300/',
+        //         changeOrigin: true,      //如果接口跨域这里就要这个参数配置
+        //         pathRewrite:{
+        //             '^/webapi':`${IP}/webapi` //实际请求地址是target/webapi/news/list
+        //             // '^/webapi':'/'    //实际请求地址是target/news/list
+        //         }
         //     }
         // },
         // 用于 mock-server
