@@ -6,6 +6,33 @@
       </video>
     </PageMain>
     <PageMain>
+      <el-form label-position="top" label-width="80px" :model="form" :rules="rules">
+        <el-form-item label="手机号" prop="iphone">
+          <el-input v-model="form.iphone"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="时间" prop="date">
+          <DateChoice
+              size="small"
+              :start-date.sync="startTime"
+              :end-date.sync="endTime"
+            ></DateChoice>
+        </el-form-item> -->
+      </el-form>
+    </PageMain>
+    <PageMain>
+      <el-button type="primary" v-throttle @click="getList">我是一个节流按钮</el-button>
+      <el-button type="primary" v-debounce="getList">我是一个防抖按钮</el-button>
+      <Pagination
+        v-show="total > 0"
+        :total="total"
+        :page.sync="page.NowPage"
+        :limit.sync="page.OnePageCount"
+        :pageSizes="[10, 15, 20]"
+        @pagination="getList"
+      >
+      </Pagination>
+    </PageMain>
+    <PageMain>
       <!-- 图标 -->
       <svg-icon name="user" />
       <!-- 权限 -->
@@ -48,6 +75,7 @@
 </template>
 <script>
 import ExampleNotice from '@/components/ExampleNotice/main.vue';
+import { validateMobile } from '@/util/validate';
 export default {
   components: {
     ExampleNotice,
@@ -59,11 +87,27 @@ export default {
         { rr: '323243辅导书的回复郭德纲防守打法', date: '2022/02/02' },
         { rr: '323243鬼地方个地方官多个电饭锅电饭锅', date: '2022/02/02' },
       ],
+      form: {},
+      rules: {
+        iphone: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { validator: validateMobile, trigger: 'blur' },
+        ],
+      },
+      total: 30,
+      page: {
+        NowPage: 1,
+        OnePageCount: 15,
+      },
     };
   },
   created() {},
   computed: {},
-  methods: {},
+  methods: {
+      getList() {
+      console.log('表格数据更新');
+    },
+  },
 };
 </script>
  <style lang="scss" scoped>
