@@ -39,3 +39,25 @@ body {
 textarea {
     font-family: inherit;
 }
+
+//超过两行多出的内容就自动变成省略号
+.two-line-hidden {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+//表格单元格 超过两行多出的内容就自动变成省略号
+::v-deep .el-table .cell {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

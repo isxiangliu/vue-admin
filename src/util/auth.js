@@ -19,5 +19,34 @@ export default {
                 }
             }
         })
+
+        //节流
+        Vue.directive('throttle', {
+            inserted: function (el, binding) {
+                el.addEventListener('click', () => {
+                    if (!el.disabled) {
+                        el.disabled = true
+                        setTimeout(() => {
+                           el.disabled = false
+                        }, binding.value || 1500)
+                    }
+                })
+            }
+        })
+        
+        //防抖
+        Vue.directive('debounce', {
+            inserted: function (el, binding) {
+                let timer
+                el.addEventListener('click', () => {
+                    if (timer) {
+                        clearTimeout(timer)
+                    }
+                    timer = setTimeout(() => {
+                        binding.value()
+                    }, 1500)
+                })
+            }
+        })
     }
 }
