@@ -21,8 +21,8 @@
       </el-form>
     </PageMain>
     <PageMain>
-      <el-button type="primary" v-throttle @click="getList">我是一个节流按钮</el-button>
-      <el-button type="primary" v-debounce="getList">我是一个防抖按钮</el-button>
+      <el-button type="primary" v-throttle @click="getList">我是节流按钮</el-button>
+      <el-button type="primary" v-debounce="getList">我是防抖按钮</el-button>
       <Pagination
         v-show="total > 0"
         :total="total"
@@ -115,6 +115,11 @@ export default {
 };
 </script>
  <style lang="scss" scoped>
+[data-mode='mobile'] {
+    .left-box {
+        width: 100%;
+    }
+}
 .svg-icon {
     font-size: 20px;
 }
