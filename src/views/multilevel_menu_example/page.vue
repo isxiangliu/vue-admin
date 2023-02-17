@@ -10,13 +10,9 @@
         <el-form-item label="手机号" prop="iphone">
           <el-input v-model="form.iphone"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="时间" prop="date">
-          <DateChoice
-              size="small"
-              :start-date.sync="startTime"
-              :end-date.sync="endTime"
-            ></DateChoice>
-        </el-form-item> -->
+        <el-form-item label="时间" prop="date">
+          <DateChoice size="small" :form="form"></DateChoice>
+        </el-form-item>
       </el-form>
     </PageMain>
     <PageMain>
@@ -104,7 +100,7 @@ export default {
   created() {},
   computed: {},
   methods: {
-      getList() {
+    getList() {
       console.log('表格数据更新');
     },
   },
