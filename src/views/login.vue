@@ -20,7 +20,6 @@
               placeholder="密码"
               tabindex="2"
               auto-complete="on"
-              @keyup.enter.native="handleLogin"
             >
               <svg-icon slot="prefix" name="password" />
               <svg-icon slot="suffix" :name="passwordType === 'password' ? 'eye' : 'eye-open'" @click="showPassword" />
@@ -28,7 +27,7 @@
           </el-form-item>
           <el-form-item prop="code">
             <div class="image-code-box">
-              <el-input v-model.trim="form.code" placeholder="验证码"></el-input>
+              <el-input v-model.trim="form.code" placeholder="验证码" @keyup.enter.native="handleLogin"></el-input>
               <VerifyCode ref="verifyCode" class="image-code" />
             </div>
           </el-form-item>
