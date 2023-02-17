@@ -6,6 +6,11 @@
       </video>
     </PageMain>
     <PageMain>
+      <div class="left-box">
+        <OrgTree @treeClick="treeClick"></OrgTree>
+      </div>
+    </PageMain>
+    <PageMain>
       <el-form label-position="top" label-width="80px" :model="form" :rules="rules">
         <el-form-item label="手机号" prop="iphone">
           <el-input v-model="form.iphone"></el-input>
@@ -103,6 +108,9 @@ export default {
     getList() {
       console.log('表格数据更新');
     },
+    treeClick(res) {
+      console.log(res);
+    },
   },
 };
 </script>
@@ -114,16 +122,14 @@ export default {
     width: 100%;
     height: 100%;
 }
-.nav {
-    p {
-        width: 200px;
-        border: 1px solid green;
-        position: relative;
-        span {
-            position: absolute;
-            right: 0;
-        }
-    }
+.left-box {
+    box-sizing: border-box;
+    transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 400px;
+    position: relative;
 }
 </style>
 
