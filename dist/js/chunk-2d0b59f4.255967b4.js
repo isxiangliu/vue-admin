@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d0b59f4"],{"1a4b":function(n,t,u){"use strict";u.r(t);var o={mounted:function(){this.$router.go(-1)}},e=u("2877"),c=Object(e.a)(o,(function(){return(0,this._self._c)("div")}),[],!1,null,null,null);t.default=c.exports}}]);
