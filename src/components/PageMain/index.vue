@@ -1,11 +1,12 @@
 <template>
-    <div class="page-main">
+    <div class="page-main watermarked">
         <div v-if="title" class="title-container">{{ title }}</div>
         <slot />
     </div>
 </template>
 
 <script>
+import { genWaterMark } from '@/util/common';
 export default {
     name: 'PageMain',
     props: {
@@ -13,7 +14,14 @@ export default {
             type: String,
             default: ''
         }
-    }
+    },
+    mounted() {
+    // const option = {
+    //   content: '测试水印',
+    //   className: 'watermarked',
+    // };
+    genWaterMark({});
+  },
 }
 </script>
 
