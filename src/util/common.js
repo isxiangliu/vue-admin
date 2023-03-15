@@ -135,7 +135,7 @@ export function genWaterMark({
     position = 'absolute',
     top = 0,
     left = 0,
-    zIndex = 1000,
+    zIndex = 998,
 }) {
     const option = {
         width,

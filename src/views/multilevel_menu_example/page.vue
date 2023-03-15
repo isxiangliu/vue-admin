@@ -5,7 +5,7 @@
         <source src="@/assets/video/login_bg.mp4" type="video/mp4" />
       </video>
     </PageMain>
-    <PageMain>
+    <PageMain class="watermarked">
       <div class="left-box">
         <OrgTree @treeClick="treeClick"></OrgTree>
       </div>
@@ -77,6 +77,7 @@
 <script>
 import ExampleNotice from '@/components/ExampleNotice/main.vue';
 import { validateMobile } from '@/util/validate';
+import { genWaterMark } from '@/util/common';
 export default {
   components: {
     ExampleNotice,
@@ -103,6 +104,13 @@ export default {
     };
   },
   created() {},
+  mounted() {
+    // const option = {
+    //   content: '测试水印',
+    //   className: 'watermarked',
+    // };
+    genWaterMark({});
+  },
   computed: {},
   methods: {
     getList() {
