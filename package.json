@@ -17,6 +17,7 @@
         "crypto-js": "^4.1.1",
         "dayjs": "^1.9.4",
         "element-ui": "^2.14.0",
+        "file-saver": "^2.0.5",
         "hotkeys-js": "^3.8.1",
         "nprogress": "^0.2.0",
         "path-to-regexp": "^6.2.0",

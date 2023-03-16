@@ -34,6 +34,9 @@
       </Pagination>
     </PageMain>
     <PageMain>
+      <el-button type="primary" v-throttle @click="getList('FileSaver')">FileSaver下载预览文件</el-button>
+    </PageMain>
+    <PageMain>
       <!-- 图标 -->
       <svg-icon name="user" />
       <!-- 权限 -->
@@ -76,8 +79,12 @@
 </template>
 <script>
 import ExampleNotice from '@/components/ExampleNotice/main.vue';
+//校验规则
 import { validateMobile } from '@/util/validate';
+//水印
 import { genWaterMark } from '@/util/common';
+//文件下载
+import FileSaver from 'file-saver';
 export default {
   components: {
     ExampleNotice,
@@ -113,8 +120,19 @@ export default {
   },
   computed: {},
   methods: {
-    getList() {
+    getList(val) {
       console.log('表格数据更新');
+      const blob = new Blob(['htmlCode!'], { type: '' });
+      const file = new File(["DevPoint，开发技术点"], "info.md", {type: "text/plain"});
+      if (val == 'FileSaver') {
+          console.log(blob);
+        // file为文件（文件地址或后台返回的二进制blob文件）
+        // fileName为文件名称（结尾必须包含文件格式如.pdf）
+        // FileSaver.saveAs(Blob/File/Url, fileName)
+        FileSaver.saveAs('https://www.lilnong.top/static/pdf/B-4-RxJS%E5%9C%A8React%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8-%E9%BE%99%E9%80%B8%E6%A5%A0_.pdf', 'hello.pdf');
+        // FileSaver.saveAs("https://httpbin.org/image", "图像.jpg");
+        // FileSaver.saveAs(file,"info.md");
+      }
     },
     treeClick(res) {
       console.log(res);

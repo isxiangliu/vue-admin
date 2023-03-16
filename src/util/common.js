@@ -101,7 +101,7 @@ export function scrollTo(to, duration, callback) {
  * @param y            // Y轴偏移量
  * }
  */
- function createImgBase(options) {
+function createImgBase(options) {
     const canvas = document.createElement('canvas');
     const text = options.content;
     // 因为要实现文字交错效果，所以这里生成两倍宽度的图片
