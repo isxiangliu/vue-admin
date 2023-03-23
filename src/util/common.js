@@ -16,6 +16,40 @@ export const blobDownload = (blob, fileName, type) => {
 }
 
 /**
+ * 下载文件
+ * @param base64Str base64
+ * @param fileName 文件名
+ */
+export function downloadFile(base64Str, fileName) {
+    const blob = dataURLtoBlob(base64Str);
+    const link = document.createElement('a');
+    link.style.display = 'none';
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+}
+
+/**
+* base64转blob
+* @param base64Str
+* @return {Blob}
+*/
+export function dataURLtoBlob(base64Str) {
+    var arr = base64Str.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {
+        type: mime,
+    });
+}
+
+/**
  * 生成uuid
  */
 export const generateUUID = () => {
