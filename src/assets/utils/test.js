@@ -3297,3 +3297,361 @@ export const china = {
 		}
 	}]
 }
+
+export const mapData={
+    "timeStr": "2022年12月",
+    "headquarters": [
+        {
+            "name": "杭州市",
+            "value": [
+                "120.153576",
+                "30.287459"
+            ],
+            "midle": {
+                "totalNumber": "5055",
+                "malePercent": "65",
+                "femalePercent": "35"
+            }
+        }
+    ],
+    "branchOffices": [
+        {
+            "name": "成都市",
+            "value": [
+                "104.065735",
+                "30.659462"
+            ],
+            "midle": {
+                "totalNumber": "215",
+                "malePercent": "56",
+                "femalePercent": "44"
+            }
+        },
+        {
+            "name": "广州市",
+            "value": [
+                "113.280637",
+                "23.125178"
+            ],
+            "midle": {
+                "totalNumber": "55",
+                "malePercent": "62",
+                "femalePercent": "38"
+            }
+        },
+        {
+            "name": "西安市",
+            "value": [
+                "108.948024",
+                "34.263161"
+            ],
+            "midle": {
+                "totalNumber": "135",
+                "malePercent": "73",
+                "femalePercent": "27"
+            }
+        }
+    ],
+    "wayPoints": [
+        {
+            "name": "深圳市",
+            "value": [
+                "114.085947",
+                "22.547000"
+            ],
+            "midle": {
+                "totalNumber": "30",
+                "malePercent": "70",
+                "femalePercent": "30"
+            }
+        },
+        {
+            "name": "温州市",
+            "value": [
+                "120.672111",
+                "28.000575"
+            ],
+            "midle": {
+                "totalNumber": "15",
+                "malePercent": "67",
+                "femalePercent": "33"
+            }
+        },
+        {
+            "name": "宁波市",
+            "value": [
+                "121.549792",
+                "29.868388"
+            ],
+            "midle": {
+                "totalNumber": "52",
+                "malePercent": "48",
+                "femalePercent": "52"
+            }
+        },
+        {
+            "name": "长沙市",
+            "value": [
+                "112.982279",
+                "28.194090"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "郑州市",
+            "value": [
+                "113.665412",
+                "34.757975"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "50",
+                "femalePercent": "50"
+            }
+        },
+        {
+            "name": "长春市",
+            "value": [
+                "125.324500",
+                "43.886841"
+            ],
+            "midle": {
+                "totalNumber": "3",
+                "malePercent": "67",
+                "femalePercent": "33"
+            }
+        },
+        {
+            "name": "昆明市",
+            "value": [
+                "102.712251",
+                "25.040609"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "上海市",
+            "value": [
+                "121.472644",
+                "31.231706"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "哈尔滨市",
+            "value": [
+                "126.642464",
+                "45.756967"
+            ],
+            "midle": {
+                "totalNumber": "4",
+                "malePercent": "75",
+                "femalePercent": "25"
+            }
+        },
+        {
+            "name": "北京市",
+            "value": [
+                "116.405285",
+                "39.904989"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "50",
+                "femalePercent": "50"
+            }
+        },
+        {
+            "name": "重庆市",
+            "value": [
+                "106.504962",
+                "29.533155"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "50",
+                "femalePercent": "50"
+            }
+        },
+        {
+            "name": "贵阳市",
+            "value": [
+                "106.713478",
+                "26.578343"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "沈阳市",
+            "value": [
+                "123.429096",
+                "41.796767"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "珠海市",
+            "value": [
+                "113.552724",
+                "22.255899"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "乌鲁木齐市",
+            "value": [
+                "87.617733",
+                "43.792818"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "延安市",
+            "value": [
+                "109.490810",
+                "36.596537"
+            ],
+            "midle": {
+                "totalNumber": "1",
+                "malePercent": "0",
+                "femalePercent": "100"
+            }
+        },
+        {
+            "name": "西宁市",
+            "value": [
+                "101.778916",
+                "36.623178"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "丽江市",
+            "value": [
+                "100.233026",
+                "26.872108"
+            ],
+            "midle": {
+                "totalNumber": "1",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "徐州市",
+            "value": [
+                "117.184811",
+                "34.261792"
+            ],
+            "midle": {
+                "totalNumber": "3",
+                "malePercent": "67",
+                "femalePercent": "33"
+            }
+        },
+        {
+            "name": "银川市",
+            "value": [
+                "106.278179",
+                "38.466370"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "烟台市",
+            "value": [
+                "121.391382",
+                "37.539297"
+            ],
+            "midle": {
+                "totalNumber": "1",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "临沂市",
+            "value": [
+                "118.326443",
+                "35.065282"
+            ],
+            "midle": {
+                "totalNumber": "2",
+                "malePercent": "50",
+                "femalePercent": "50"
+            }
+        },
+        {
+            "name": "大连市",
+            "value": [
+                "121.618622",
+                "38.914590"
+            ],
+            "midle": {
+                "totalNumber": "1",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        },
+        {
+            "name": "兰州市",
+            "value": [
+                "103.823557",
+                "36.058039"
+            ],
+            "midle": {
+                "totalNumber": "1",
+                "malePercent": "0",
+                "femalePercent": "100"
+            }
+        },
+        {
+            "name": "韩国",
+            "value": [
+                null,
+                null
+            ],
+            "midle": {
+                "totalNumber": "1",
+                "malePercent": "100",
+                "femalePercent": "0"
+            }
+        }
+    ]
+}

@@ -1,4 +1,32 @@
 /**
+ * 显示ECharts加载动画效果
+ * @param chart echarts实例
+ */
+export function showChartLoading(chart) {
+    if (!chart) {
+        return
+    }
+
+    chart.showLoading({
+        text: '',
+        lineWidth: 2,// 旋转动画（spinner）的线宽
+        spinnerRadius: 16,// 旋转动画（spinner）的半径
+        maskColor: 'rgba(255,255,255,0)'
+    })
+}
+
+/**
+ * 隐藏ECharts动画加载效果
+ * @param chart echarts实例
+ */
+export function hiddenChartLoading(chart) {
+    if (!chart) {
+        return
+    }
+    chart.hideLoading();
+}
+
+/**
  * 下载blob类型的数据
  * @param blob
  * @param fileName 文件名

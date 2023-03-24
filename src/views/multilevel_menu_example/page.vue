@@ -1,9 +1,17 @@
 <template>
   <div>
-    <PageMain>
-      <video class="video-bg" playsinline="" autoplay="" muted="" loop="">
-        <source src="@/assets/video/login_bg.mp4" type="video/mp4" />
-      </video>
+    <PageMain class="viewNav">
+      <el-row :gutter="10">
+        <el-col :span="6"></el-col>
+        <el-col :span="12">
+            <map-chart ref="mapChart" class="mapChart" style="height: 500px;"/>
+        </el-col>
+        <el-col :span="6"></el-col>
+        <el-col :span="6"></el-col>
+        <el-col :span="6"></el-col>
+        <el-col :span="6"></el-col>
+        <el-col :span="6"></el-col>
+      </el-row>
     </PageMain>
     <PageMain class="watermarked">
       <div class="left-box">
@@ -99,6 +107,11 @@
       </div>
       <div style="clear: both;"></div>
     </PageMain>
+    <PageMain>
+      <video class="video-bg" playsinline="" autoplay="" muted="" loop="">
+        <source src="@/assets/video/login_bg.mp4" type="video/mp4" />
+      </video>
+    </PageMain>
   </div>
 </template>
 <script>
@@ -109,10 +122,12 @@ import { validateMobile } from '@/util/validate';
 import { genWaterMark } from '@/util/common';
 //文件下载
 import FileSaver from 'file-saver';
-import { imgbase4, tableData, testData } from '@/assets/utils/test';
+import { imgbase4, tableData, testData,mapData } from '@/assets/utils/test';
+import MapChart from './components/MapChart';
 export default {
   components: {
     ExampleNotice,
+    MapChart,
   },
   data() {
     return {
@@ -136,6 +151,7 @@ export default {
       tableData: tableData,
       imgbase4: imgbase4,
       testData: testData,
+      mapData:mapData,
     };
   },
   created() {},
@@ -144,7 +160,8 @@ export default {
     //   content: '测试水印',
     //   className: 'watermarked',
     // };
-    genWaterMark({});
+    genWaterMark({});//水印
+     this.fetchMapData();//地图
   },
   computed: {},
   methods: {
@@ -196,18 +213,28 @@ export default {
       }
     },
     arraySpanMethod1({ rowIndex, columnIndex }) {
-        if (rowIndex ==3 ) { //当前第二行
-            console.log(rowIndex, columnIndex);
-            if (columnIndex%2===1) {  
-                console.log(columnIndex,'zz');
-                return [1,2]   //行 列
-            }
-            else if (columnIndex==2) {
-                 console.log(columnIndex,'qq');
-                return [0,0]
-            }
+      if (rowIndex == 3) {
+        //当前第二行
+        if (columnIndex % 2 === 1) {
+          return [1, 2]; //行 列
+        } else if (columnIndex == 2) {
+          return [0, 0];
         }
+      }
     },
+    //获取地图数据
+    async fetchMapData(){
+        const mapChart = this.$refs.mapChart;
+        if (!mapChart) {
+          return
+        }
+        mapChart.showChartLoading();
+        // const mapData = await getHomeMap().finally(() => mapChart.hiddenChartLoading());
+        const mapData=this.mapData
+        mapChart.hiddenChartLoading()
+        this.mapTimeDate = mapData.timeStr
+        mapChart.init(mapData);
+    }
   },
 };
 </script>
@@ -241,6 +268,9 @@ export default {
     background-color: #f0f9eb;
     font-size: 14px;
     color: #27a2ff;
+}
+.viewNav {
+    background-color: #00031b;
 }
 </style>
 
