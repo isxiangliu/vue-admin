@@ -25,6 +25,7 @@ export default {
     initChart(dom, theme) {
       if (!this.chart) {
         this.chart = this.$echarts.init(dom, theme);
+        console.log(this.chart);
       } else {
         this.chart.clear();
       }

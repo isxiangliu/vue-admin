@@ -2,15 +2,18 @@
   <div>
     <PageMain class="viewNav">
       <el-row :gutter="10">
-        <el-col :span="6"></el-col>
+        <el-col :span="6">
+        </el-col>
         <el-col :span="12">
-            <map-chart ref="mapChart" class="mapChart" style="height: 500px;"/>
+          <map-chart ref="mapChart" class="mapChart" style="height: 500px;" />
         </el-col>
         <el-col :span="6"></el-col>
+        <el-col :span="24">
+             <HorizontalBarChart ref="chart" :chartData="barChartData" style="height: 280px;" />
+        </el-col>
+        <!-- <el-col :span="6"></el-col>
         <el-col :span="6"></el-col>
-        <el-col :span="6"></el-col>
-        <el-col :span="6"></el-col>
-        <el-col :span="6"></el-col>
+        <el-col :span="6"></el-col> -->
       </el-row>
     </PageMain>
     <PageMain class="watermarked">
@@ -122,12 +125,14 @@ import { validateMobile } from '@/util/validate';
 import { genWaterMark } from '@/util/common';
 //文件下载
 import FileSaver from 'file-saver';
-import { imgbase4, tableData, testData,mapData } from '@/assets/utils/test';
+import { imgbase4, tableData, testData, mapData, departmentChart } from '@/assets/utils/test';
 import MapChart from './components/MapChart';
+import HorizontalBarChart from './components/HorizontalBarChart';
 export default {
   components: {
     ExampleNotice,
     MapChart,
+    HorizontalBarChart,
   },
   data() {
     return {
@@ -151,7 +156,11 @@ export default {
       tableData: tableData,
       imgbase4: imgbase4,
       testData: testData,
-      mapData:mapData,
+      mapData: mapData,
+      barChartData: {
+        department: [],
+        data: [],
+      },
     };
   },
   created() {},
@@ -160,8 +169,9 @@ export default {
     //   content: '测试水印',
     //   className: 'watermarked',
     // };
-    genWaterMark({});//水印
-     this.fetchMapData();//地图
+    genWaterMark({}); //水印
+    this.fetchMapData(); //地图
+    this.getDepartmentInfoChart(); //部门人数
   },
   computed: {},
   methods: {
@@ -223,18 +233,34 @@ export default {
       }
     },
     //获取地图数据
-    async fetchMapData(){
-        const mapChart = this.$refs.mapChart;
-        if (!mapChart) {
-          return
-        }
-        mapChart.showChartLoading();
-        // const mapData = await getHomeMap().finally(() => mapChart.hiddenChartLoading());
-        const mapData=this.mapData
-        mapChart.hiddenChartLoading()
-        this.mapTimeDate = mapData.timeStr
-        mapChart.init(mapData);
-    }
+    async fetchMapData() {
+      const mapChart = this.$refs.mapChart;
+      if (!mapChart) {
+        return;
+      }
+      mapChart.showChartLoading();
+      // const mapData = await getHomeMap().finally(() => mapChart.hiddenChartLoading());
+      const mapData = this.mapData;
+      mapChart.hiddenChartLoading();
+      mapChart.init(mapData);
+    },
+    //各部门人数
+    getDepartmentInfoChart() {
+      const res = departmentChart;
+      let nameList = res.list[0].name;
+      let chartName = [];
+      for (let key in nameList) {
+        chartName.push(nameList[key]);
+      }
+      this.barChartData.department = chartName;
+
+      let numList = res.list[0].data;
+      let chartNumber = [];
+      for (let key in numList) {
+        chartNumber.push(numList[key]);
+      }
+      this.barChartData.data = chartNumber;
+    },
   },
 };
 </script>
