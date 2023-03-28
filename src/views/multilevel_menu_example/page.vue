@@ -2,14 +2,15 @@
   <div>
     <PageMain class="viewNav">
       <el-row :gutter="10">
-        <el-col :span="6">
-        </el-col>
+        <el-col :span="6"> </el-col>
         <el-col :span="12">
           <map-chart ref="mapChart" class="mapChart" style="height: 500px;" />
         </el-col>
         <el-col :span="6"></el-col>
         <el-col :span="24">
-             <HorizontalBarChart ref="chart" :chartData="barChartData" style="height: 280px;" />
+          <BlockTitle title="各部门人数" full share download @download="downloadChart($refs.chart.chart,`各部门人数`)">
+            <HorizontalBarChart ref="chart" :chartData="barChartData" style="height: 280px;" />
+          </BlockTitle>
         </el-col>
         <!-- <el-col :span="6"></el-col>
         <el-col :span="6"></el-col>
@@ -128,12 +129,16 @@ import FileSaver from 'file-saver';
 import { imgbase4, tableData, testData, mapData, departmentChart } from '@/assets/utils/test';
 import MapChart from './components/MapChart';
 import HorizontalBarChart from './components/HorizontalBarChart';
+import BlockTitle from './components/BlockTitle';
+import Chart from '@/mixin/chart'
 export default {
   components: {
     ExampleNotice,
     MapChart,
     HorizontalBarChart,
+    BlockTitle,
   },
+  mixins: [Chart],
   data() {
     return {
       data: [

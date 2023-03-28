@@ -1,0 +1,31 @@
+// 主题色
+$primaryColor: #4c5c82;
+
+// sidebar
+$menuText: #94aed9;
+$menuActiveText: #4365dc;
+$subMenuActiveText: #4365dc; //https://github.com/ElemeFE/element/issues/12951
+
+$menuBg: rgba(255, 255, 255, 0);
+$menuHover: linear-gradient(90deg, rgba(0, 117, 255, 0.1) 0%, rgba(0, 117, 255, 0) 100%);
+
+$subMenuBg: rgba(255, 255, 255, 0);
+$subMenuHover: linear-gradient(90deg, rgba(0, 117, 255, 0.1) 0%, rgba(0, 117, 255, 0) 100%);
+
+$sideBarWidth: 260px;
+$navBarHeight: 68px;
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+    primarycolor: $primaryColor;
+    menutext: $menuText;
+    menuactivetext: $menuActiveText;
+    submenuactivetext: $subMenuActiveText;
+    menubg: $menuBg;
+    menuhover: $menuHover;
+    submenubg: $subMenuBg;
+    submenuhover: $subMenuHover;
+    sidebarwidth: $sideBarWidth;
+    navbarheight: $navBarHeight;
+}
