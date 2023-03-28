@@ -23,6 +23,7 @@ export default {
     margin: 20px;
     padding: 20px;
     background-color: #fff;
+    z-index: 997;
     .title-container {
         width: calc(100% + 40px);
         padding: 14px 20px;

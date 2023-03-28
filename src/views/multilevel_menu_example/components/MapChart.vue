@@ -300,12 +300,14 @@ export default {
         ],
       };
       this.chart.setOption(option);
+      //echarts图表渲染一进来默认显示tooltip
       this.chart.dispatchAction({
         type: 'showTip',
         seriesIndex: 1,
         dataIndex: option.series[1].data.length - 1,
       });
       let myChart = this.chart;
+      //触发其他tooltip放开重置默认
       myChart.on('globalout', (params) => {
         myChart.dispatchAction({
           type: 'showTip',
