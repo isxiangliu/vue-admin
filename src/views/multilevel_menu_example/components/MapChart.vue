@@ -28,6 +28,12 @@ export default {
     init(data) {
       this.renderChart(data);
     },
+    /**
+     * @author xiangliu
+     * @description: 
+     * @date 2023-03-29 15:06
+     * @param: 
+     */
     renderChart({ headquarters, branchOffices, wayPoints }) {
       // 注册地图
       this.$echarts.registerMap('china', china);

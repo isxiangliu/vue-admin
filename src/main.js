@@ -62,7 +62,8 @@ import {
     TransformComponent,
     LegendComponent,
     GeoComponent,
-    DataZoomComponent
+    DataZoomComponent,
+    ToolboxComponent
 } from 'echarts/components';
 // 标签自动布局，全局过渡动画等特性
 import { LabelLayout, UniversalTransition } from 'echarts/features';
@@ -88,7 +89,8 @@ echarts.use([
     EffectScatterChart,
     RadarChart,
     DataZoomComponent,
-    CustomChart
+    CustomChart,
+    ToolboxComponent
 ]);
 echarts.registerTheme('custom-theme', echartsTheme);
 Vue.prototype.$echarts = echarts;

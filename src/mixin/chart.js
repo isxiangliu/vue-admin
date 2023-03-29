@@ -5,6 +5,9 @@ export default {
     data() {
         return {
             chart: null,
+            dialogVisible: false,
+            screenHeight: window.innerHeight,
+            screenWidth: window.screenWidth
         }
     },
     beforeDestroy() {
@@ -13,6 +16,20 @@ export default {
             this.chart.dispose();
             this.chart = null;
         }
+    },
+    watch: {
+        /**
+        * @description 打开弹框控制手动更新图表
+        * @author xiangliu
+        * @param val
+        */
+        dialogVisible(val) {
+            if (val) {
+                this.$nextTick(() => {
+                    this.$refs.HorizontalBarChart.setOptions(this.barChartData);
+                });
+            }
+        },
     },
     methods: {
         /**
@@ -127,6 +144,9 @@ export default {
                 method: "post",
                 data: params
             })
+        },
+        fullChart() {
+            this.dialogVisible = true
         }
     }
 }

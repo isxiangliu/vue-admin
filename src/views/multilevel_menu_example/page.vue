@@ -1,5 +1,13 @@
 <template>
   <div>
+    <el-dialog title="全屏显示" :visible.sync="dialogVisible" :fullscreen="true" center>
+      <HorizontalBarChart
+        v-if="screenHeight"
+        ref="HorizontalBarChart"
+        :chartData="barChartData"
+        :style="{ width: screenWidth - 110 + 'px', height: screenHeight - 110 + 'px' }"
+      />
+    </el-dialog>
     <PageMain class="viewNav">
       <el-row :gutter="10">
         <el-col :span="6"> </el-col>
@@ -8,7 +16,14 @@
         </el-col>
         <el-col :span="6"></el-col>
         <el-col :span="24">
-          <BlockTitle title="各部门人数" full share download @download="downloadChart($refs.chart.chart,`各部门人数`)">
+          <BlockTitle
+            title="各部门人数"
+            full
+            share
+            download
+            @download="downloadChart($refs.chart.chart, `各部门人数`)"
+            @full="fullChart"
+          >
             <HorizontalBarChart ref="chart" :chartData="barChartData" style="height: 280px;" />
           </BlockTitle>
         </el-col>
@@ -130,7 +145,7 @@ import { imgbase4, tableData, testData, mapData, departmentChart } from '@/asset
 import MapChart from './components/MapChart';
 import HorizontalBarChart from './components/HorizontalBarChart';
 import BlockTitle from './components/BlockTitle';
-import Chart from '@/mixin/chart'
+import Chart from '@/mixin/chart';
 export default {
   components: {
     ExampleNotice,
@@ -169,6 +184,15 @@ export default {
     };
   },
   created() {},
+  watch: {
+    screenHeight(val) {
+      this.screenHeight = val;
+    },
+    screenWidth(val) {
+      this.screenWidth = val;
+    },
+  },
+  computed: {},
   mounted() {
     // const option = {
     //   content: '测试水印',
@@ -177,6 +201,13 @@ export default {
     genWaterMark({}); //水印
     this.fetchMapData(); //地图
     this.getDepartmentInfoChart(); //部门人数
+    // 获取浏览器窗口大小
+    window.onresize = () => {
+      return (() => {
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+      })();
+    };
   },
   computed: {},
   methods: {
