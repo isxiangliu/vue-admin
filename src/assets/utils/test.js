@@ -3744,3 +3744,45 @@ export const departmentChart = {
         }
     ]
 }
+
+export const circleTestData={
+    "list": [
+        {
+            "name": "50以上",
+            "value": 90
+        },
+        {
+            "name": "45-50（含）",
+            "value": 144
+        },
+        {
+            "name": "40-45（含）",
+            "value": 288
+        },
+        {
+            "name": "35-40（含）",
+            "value": 498
+        },
+        {
+            "name": "30-35（含）",
+            "value": 808
+        },
+        {
+            "name": "25-30（含）",
+            "value": 1154
+        },
+        {
+            "name": "20-25（含）",
+            "value": 2123
+        },
+        {
+            "name": "16-20（含）",
+            "value": 200
+        },
+        {
+            "name": "无",
+            "value": 2
+        }
+    ],
+    "average": 29
+}

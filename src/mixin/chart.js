@@ -11,7 +11,9 @@ export default {
         }
     },
     beforeDestroy() {
+        console.log('222');
         if (this.chart && !this.chart.isDisposed()) {
+            console.log('1111')
             this.chart.clear();
             this.chart.dispose();
             this.chart = null;

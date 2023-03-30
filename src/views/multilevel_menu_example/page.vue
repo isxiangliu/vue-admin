@@ -10,11 +10,12 @@
     </el-dialog>
     <PageMain class="viewNav">
       <el-row :gutter="10">
-        <el-col :span="6"> </el-col>
         <el-col :span="12">
           <map-chart ref="mapChart" class="mapChart" style="height: 500px;" />
         </el-col>
-        <el-col :span="6"></el-col>
+        <el-col :span="12">
+           <AllAgeEmployees :chartData="circleChartData" style="height: 500px;"/>
+        </el-col>
         <el-col :span="24">
           <BlockTitle
             title="各部门人数"
@@ -27,9 +28,6 @@
             <HorizontalBarChart ref="chart" :chartData="barChartData" style="height: 280px;" />
           </BlockTitle>
         </el-col>
-        <!-- <el-col :span="6"></el-col>
-        <el-col :span="6"></el-col>
-        <el-col :span="6"></el-col> -->
       </el-row>
     </PageMain>
     <PageMain class="watermarked">
@@ -141,10 +139,11 @@ import { validateMobile } from '@/util/validate';
 import { genWaterMark } from '@/util/common';
 //文件下载
 import FileSaver from 'file-saver';
-import { imgbase4, tableData, testData, mapData, departmentChart } from '@/assets/utils/test';
+import { imgbase4, tableData, testData, mapData, departmentChart,circleTestData } from '@/assets/utils/test';
 import MapChart from './components/MapChart';
 import HorizontalBarChart from './components/HorizontalBarChart';
 import BlockTitle from './components/BlockTitle';
+import AllAgeEmployees from './components/AllAgeEmployees';
 import Chart from '@/mixin/chart';
 export default {
   components: {
@@ -152,6 +151,7 @@ export default {
     MapChart,
     HorizontalBarChart,
     BlockTitle,
+    AllAgeEmployees,
   },
   mixins: [Chart],
   data() {
@@ -177,6 +177,8 @@ export default {
       imgbase4: imgbase4,
       testData: testData,
       mapData: mapData,
+      circleTestData: circleTestData,
+      circleChartData:{},
       barChartData: {
         department: [],
         data: [],
@@ -201,6 +203,7 @@ export default {
     genWaterMark({}); //水印
     this.fetchMapData(); //地图
     this.getDepartmentInfoChart(); //部门人数
+    this.getAgeRangePageChart() //各年龄员工分布
     // 获取浏览器窗口大小
     window.onresize = () => {
       return (() => {
@@ -297,6 +300,10 @@ export default {
       }
       this.barChartData.data = chartNumber;
     },
+    //各年龄员工分布
+    getAgeRangePageChart(){
+        this.circleChartData=this.circleTestData
+    }
   },
 };
 </script>
