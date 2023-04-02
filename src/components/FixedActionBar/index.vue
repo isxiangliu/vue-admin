@@ -51,7 +51,7 @@ export default {
 }
 .actionbar {
     position: fixed;
-    z-index: 4;
+    z-index: 998;
     right: 0;
     bottom: 0;
     left: 50%;

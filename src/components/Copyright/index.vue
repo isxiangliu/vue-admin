@@ -31,11 +31,12 @@ export default {
 
 <style lang="scss" scoped>
 footer {
-    margin: 20px 0 20px 0;
-    line-height: 20px;
+    margin: 20px 0 70px 0;
+    line-height: 10px;
     text-align: center;
     color: #808695;
     font-size: 14px;
+    // z-index: 998;
     a {
         text-decoration: none;
         color: #808695;

@@ -106,8 +106,6 @@
       <ExampleNotice> </ExampleNotice>
       <!-- 上传文件可拖拽 -->
       <FileUpload></FileUpload>
-      <!-- 下拉触底 -->
-      <FixedActionBar></FixedActionBar>
       <!-- 图片放大预览 -->
       <ImagePreview width="200px" height="200px" :src="imgbase4"></ImagePreview>
       <!-- 上传文件 -->
@@ -129,6 +127,8 @@
         <source src="@/assets/video/login_bg.mp4" type="video/mp4" />
       </video>
     </PageMain>
+    <!-- 下拉触底 -->
+    <FixedActionBar></FixedActionBar>
   </div>
 </template>
 <script>

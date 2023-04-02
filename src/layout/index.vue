@@ -509,4 +509,7 @@ header + .wrapper {
     opacity: 0;
     margin-left: 20px;
 }
+.el-backtop {
+    z-index: 998;
+}
 </style>
