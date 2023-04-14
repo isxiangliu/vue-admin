@@ -60,7 +60,7 @@ export default {
         },
         ext: {
             type: Array,
-            default: () => ['zip', 'rar','jpg','pdf']
+            default: () => ['zip', 'rar', 'jpg', 'pdf']
         }
     },
     methods: {

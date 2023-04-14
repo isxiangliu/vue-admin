@@ -1,84 +1,84 @@
 <template>
-  <div class="card-container">
-    <div v-if="symbol" class="symbol" />
-    <div v-if="title" class="block-title">
-      <div class="title">{{ title }}</div>
-      <div class="buttons" v-if="full || share || download">
-        <div v-if="full" class="base-btn" @click="handleClick('full')">
-          <i class="el-icon-full-screen" />
+    <div class="card-container">
+        <div v-if="symbol" class="symbol" />
+        <div v-if="title" class="block-title">
+            <div class="title">{{ title }}</div>
+            <div v-if="full || share || download" class="buttons">
+                <div v-if="full" class="base-btn" @click="handleClick('full')">
+                    <i class="el-icon-full-screen" />
+                </div>
+                <div v-if="share" class="base-btn" @click="handleClick('share')">
+                    <i class="el-icon-share" />
+                </div>
+                <div v-if="download" class="base-btn" @click="handleClick('download')">
+                    <i class="el-icon-download" />
+                </div>
+            </div>
         </div>
-        <div v-if="share" class="base-btn" @click="handleClick('share')">
-          <i class="el-icon-share" />
-        </div>
-        <div v-if="download" class="base-btn" @click="handleClick('download')">
-          <i class="el-icon-download" />
-        </div>
-      </div>
+        <slot />
     </div>
-    <slot />
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'BlockTitle',
-  props: {
-    symbol: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+    name: 'BlockTitle',
+    props: {
+        symbol: {
+            type: Boolean,
+            default: true
+        },
+        /**
      * 标题栏
      */
-    title: {
-      type: String,
-      default: '',
+        title: {
+            type: String,
+            default: ''
+        },
+        /* 开启下载功能 */
+        download: {
+            type: Boolean,
+            default: false
+        },
+        /* 开启分享功能 */
+        share: {
+            type: Boolean,
+            default: false
+        },
+        /* 开启全屏功能 */
+        full: {
+            type: Boolean,
+            default: false
+        }
     },
-    /* 开启下载功能 */
-    download: {
-      type: Boolean,
-      default: false,
+    data() {
+        return {}
     },
-    /* 开启分享功能 */
-    share: {
-      type: Boolean,
-      default: false,
-    },
-    /* 开启全屏功能 */
-    full: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    /**
-     * @description 点击事件
-     * @author xiangliu
-     * @date 2022/12/20 21:04
-     * @param type 类型 download-下载 share-分享 full-全屏
-     */
-    handleClick(type) {
-      if (type === 'share') {
-        this.copyLink();
-        this.$message.success('分享链接已复制到剪贴板');
-      }
-      this.$emit(type);
-    },
-    copyLink() {
-      const input = document.createElement('input');
-      input.value = window.location;
-      input.id = 'input';
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('Copy'); // 执行浏览器复制命令
-      let creatDom = document.getElementById('input');
-      creatDom.parentNode.removeChild(creatDom);
-    },
-  },
-};
+    methods: {
+        /**
+         * @description 点击事件
+         * @author xiangliu
+         * @date 2022/12/20 21:04
+         * @param type 类型 download-下载 share-分享 full-全屏
+         */
+        handleClick(type) {
+            if (type === 'share') {
+                this.copyLink()
+                this.$message.success('分享链接已复制到剪贴板')
+            }
+            this.$emit(type)
+        },
+        copyLink() {
+            const input = document.createElement('input')
+            input.value = window.location
+            input.id = 'input'
+            document.body.appendChild(input)
+            input.select()
+            document.execCommand('Copy') // 执行浏览器复制命令
+            let creatDom = document.getElementById('input')
+            creatDom.parentNode.removeChild(creatDom)
+        }
+    }
+}
 </script>
 
 <style scoped lang="scss">

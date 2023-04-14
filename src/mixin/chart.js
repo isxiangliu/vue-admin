@@ -1,5 +1,5 @@
-import { downloadFile, hiddenChartLoading, showChartLoading } from "@/util/common";
-import request from "@/api";
+import { downloadFile, hiddenChartLoading, showChartLoading } from '@/util/common'
+import request from '@/api'
 
 export default {
     data() {
@@ -11,12 +11,12 @@ export default {
         }
     },
     beforeDestroy() {
-        console.log('222');
+        console.log('222')
         if (this.chart && !this.chart.isDisposed()) {
             console.log('1111')
-            this.chart.clear();
-            this.chart.dispose();
-            this.chart = null;
+            this.chart.clear()
+            this.chart.dispose()
+            this.chart = null
         }
     },
     watch: {
@@ -28,10 +28,10 @@ export default {
         dialogVisible(val) {
             if (val) {
                 this.$nextTick(() => {
-                    this.$refs.HorizontalBarChart.setOptions(this.barChartData);
-                });
+                    this.$refs.HorizontalBarChart.setOptions(this.barChartData)
+                })
             }
-        },
+        }
     },
     methods: {
         /**
@@ -43,15 +43,15 @@ export default {
          */
         initChart(dom, theme) {
             if (!this.chart) {
-                this.chart = this.$echarts.init(dom, theme);
+                this.chart = this.$echarts.init(dom, theme)
             } else {
-                this.chart.clear();
+                this.chart.clear()
             }
-            window.addEventListener("resize", () => {
+            window.addEventListener('resize', () => {
                 if (this.chart) {
-                    this.chart.resize();
+                    this.chart.resize()
                 }
-            });
+            })
         },
         /**
          * @description 配置暂无数据
@@ -61,18 +61,18 @@ export default {
          */
         setEmptyOption(chart) {
             if (!chart) {
-                chart = this.chart;
+                chart = this.chart
             }
-            chart.clear();
+            chart.clear()
             chart.setOption({
                 title: {
-                    text: "暂无数据",
-                    x: "center",
-                    y: "center",
+                    text: '暂无数据',
+                    x: 'center',
+                    y: 'center',
                     textStyle: {
-                        color: "#909399",
-                        fontWeight: "normal",
-                        fontSize: 12,
+                        color: '#909399',
+                        fontWeight: 'normal',
+                        fontSize: 12
                     }
                 }
             })
@@ -83,7 +83,7 @@ export default {
          * @date 2022/12/6 9:59
          */
         showChartLoading() {
-            showChartLoading(this.chart);
+            showChartLoading(this.chart)
         },
         /**
          * @description 隐藏loading
@@ -91,7 +91,7 @@ export default {
          * @date 2022/12/6 9:59
          */
         hiddenChartLoading() {
-            hiddenChartLoading(this.chart);
+            hiddenChartLoading(this.chart)
         },
         /**
          * @description 导出图表图片
@@ -102,21 +102,21 @@ export default {
          */
         downloadChart(chart, fileName) {
             if (!chart) {
-                chart = this.chart;
+                chart = this.chart
             }
             if (!chart) {
-                return;
+                return
             }
             const base64 = chart.getDataURL({
                 type: 'png',
                 pixelRatio: 2,
                 backgroundColor: '#fff'
-            });
+            })
             if (!fileName) {
-                fileName = new Date().getTime();
+                fileName = new Date().getTime()
             }
 
-            downloadFile(base64, fileName);
+            downloadFile(base64, fileName)
         },
         /**
          * @description 导出表格
@@ -126,12 +126,12 @@ export default {
          * @param params 请求入参
          */
         async downloadTable(url, params) {
-            const res = await this.exportTableFile(url, params);
+            const res = await this.exportTableFile(url, params)
             if (!res) {
-                return;
+                return
             }
-            const { fileStr, excelName } = res;
-            downloadFile(`data:application/vnd.ms-excel;base64,${fileStr}`, excelName);
+            const { fileStr, excelName } = res
+            downloadFile(`data:application/vnd.ms-excel;base64,${fileStr}`, excelName)
         },
         /**
          * @description 导出表格
@@ -143,7 +143,7 @@ export default {
         exportTableFile(url, params) {
             return request({
                 url: `/daas-hr-bi-service${url}`,
-                method: "post",
+                method: 'post',
                 data: params
             })
         },

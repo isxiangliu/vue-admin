@@ -18,7 +18,7 @@ const getters = {
 
 const actions = {
     login({ commit }, data) {
-        const { username, password } = data;
+        const { username, password } = data
         return new Promise((resolve, reject) => {
             // login({
             //     grant_type: "password",

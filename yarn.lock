@@ -10103,6 +10103,11 @@
     "loader-utils" "^1.1.0"
     "neo-async" "^2.6.0"
 
+"three@^0.151.3":
+  "integrity" "sha512-+vbuqxFy8kzLeO5MgpBHUvP/EAiecaDwDuOPPDe6SbrZr96kccF0ktLngXc7xA7bzyd3N0t2f6mw3Z9y6JCojQ=="
+  "resolved" "https://registry.npmmirror.com/three/-/three-0.151.3.tgz"
+  "version" "0.151.3"
+
 "throttle-debounce@^1.0.1":
   "integrity" "sha512-XH8UiPCQcWNuk2LYePibW/4qL97+ZQ1AN3FNXwZRBNPPowo/NRU5fAlDCSNBJIYCKbioZfuYtMhG4quqoJhVzg=="
   "resolved" "https://registry.npmmirror.com/throttle-debounce/-/throttle-debounce-1.1.0.tgz"
