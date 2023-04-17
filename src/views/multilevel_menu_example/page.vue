@@ -9,10 +9,13 @@
             />
         </el-dialog>
         <PageMain>
+            <div id="scene" />
+        </PageMain>
+        <PageMain>
             <canvas id="three" />
         </PageMain>
         <PageMain class="viewNav">
-            <el-row :gutter="10">
+            <el-row :gutter="10">  
                 <el-col :span="12">
                     <map-chart ref="mapChart" class="mapChart" style="height: 500px;" />
                 </el-col>
@@ -199,7 +202,6 @@ export default {
         }
     },
     created() {
-        
     },
     mounted() {
         // const option = {
@@ -218,8 +220,74 @@ export default {
             })()
         }
         this.init()
+        this.initMap()
     },
     methods: {
+        initMap() {
+            const scene = new THREE.Scene()
+            const container = document.getElementById('scene')
+            const renderer = new THREE.WebGLRenderer({ container, antialias: true }) // 新建一个WebGLRenderer
+            container.appendChild(renderer.domElement) // body元素中插入canvas对象
+
+            const camera = new THREE.PerspectiveCamera(
+                60, 
+                window.innerWidth / window.innerHeight, 
+                1, 
+                100000
+            )
+            camera.position.set(6000, 9000, 6000) // 树上面观察
+            // camera.position.set(200, 30, 200) // 树下面观察
+            camera.lookAt(scene.position) // 设置相机方向(指向的场景对象)
+
+            const controls = new OrbitControls(camera, renderer.domElement)
+            controls.enableDamping = true// 添加阻尼感 真实
+
+            const axesHelper = new THREE.AxesHelper(5000)
+            scene.add(axesHelper)
+
+            function animate() {
+                renderer.render(scene, camera)
+                controls.update()
+                requestAnimationFrame(animate) // 请求再次执行渲染函数render
+                if (resizeRendererToDisplaySize(renderer)) {
+                    const canvas = renderer.domElement
+                    camera.aspect = canvas.clientWidth / canvas.clientHeight
+                    camera.updateProjectionMatrix()
+                }
+            }
+            animate()
+
+            const loader = new GLTFLoader()
+            loader.load('/seraphine/shanghai.gltf', gltf => {
+                let model = gltf.scene
+                // model.scale.set(4, 4, 4)
+                // model.rotation.y = Math.PI 
+                // model.rotation.z = Math.PI / 4
+                scene.add(model)
+            })
+            // 创建点光源和环境光源
+            const point = new THREE.PointLight(0xffffff)
+            point.position.set(6000, 9000, 6000) // 点光源位置
+            scene.add(point) // 点光源添加到场景中
+            // 环境光
+            const ambient = new THREE.AmbientLight(0x888888)
+            scene.add(ambient)
+
+            // 此属性返回当前显示设备的物理像素分辨率与CSS像素分辨率的比值 解决模糊
+            function resizeRendererToDisplaySize(renderer) {
+                const canvas = renderer.domElement
+                var width = window.innerWidth
+                var height = window.innerHeight
+                var canvasPixelWidth = canvas.width / window.devicePixelRatio
+                var canvasPixelHeight = canvas.height / window.devicePixelRatio
+                const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height
+                if (needResize) {
+                    renderer.setSize(width, height, false)
+                }
+                return needResize
+            }
+            
+        },
         init() {
             const scene = new THREE.Scene()
             scene.background = new THREE.Color('#eee')
@@ -239,6 +307,8 @@ export default {
             
             const controls = new OrbitControls(camera, renderer.domElement)
             controls.enableDamping = true// 添加阻尼感 真实
+            const axesHelper = new THREE.AxesHelper(3)
+            scene.add(axesHelper)
             function animate() {
                 renderer.render(scene, camera)
                 controls.update()
@@ -275,6 +345,8 @@ export default {
                         i.receiveShadow = true
                     }
                 })
+                model.position.z = 1.5
+                model.rotation.y = Math.PI / 2
                 scene.add(model)
             })
             
@@ -282,7 +354,7 @@ export default {
             function resizeRendererToDisplaySize(renderer) {
                 const canvas = renderer.domElement
                 var width = window.innerWidth
-                var height = window.innerHeight * 2 - 200
+                var height = window.innerHeight
                 var canvasPixelWidth = canvas.width / window.devicePixelRatio
                 var canvasPixelHeight = canvas.height / window.devicePixelRatio
                 const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height
@@ -447,6 +519,11 @@ export default {
 #three {
     width: 100%;
     height: 100%;
+}
+#scene {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 </style>
 
