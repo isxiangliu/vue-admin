@@ -141,6 +141,15 @@ export function initMap() {
          */
 
         const shader = new THREE.ShaderMaterial({
+            polygonOffset: true,
+            polygonOffsetFactor: -0.1,
+            polygonOffsetUnits: -1.0,
+            // 金属度
+            metalness: 0.9,
+            // 透明度
+            transmission: 0.9,
+            // 模型是否透明
+            transparent: true,
             uniforms: {
                 height: height,
                 uFlowColor: {
