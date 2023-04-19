@@ -1,6 +1,6 @@
 import * as THREE from 'three/build/three.module'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 let height = {
     value: 0
@@ -28,8 +28,8 @@ export function initMap() {
     scene.add(axesHelper)
 
     function animate() {
-        height.value += 0.03
-        if (height.value > 100) {
+        height.value += 0.08
+        if (height.value > 50) {
             height.value = 0.0
         }
         renderer.render(scene, camera)
@@ -69,7 +69,7 @@ export function initMap() {
                     )
                     lineS.rotation.x = -Math.PI / 2
                     scene.add(lineS)
-                   
+
                     // 面材质
                     const material = new THREE.MeshPhysicalMaterial({
                         color: '#32AAFF',
@@ -97,7 +97,7 @@ export function initMap() {
                     // 道路
                     const material = new THREE.MeshBasicMaterial({
                         color: '#292E2F'
-                 
+
                     })
                     const roadsMesh = new THREE.Mesh(child.geometry, material)
                     roadsMesh.position.set(
@@ -126,8 +126,8 @@ export function initMap() {
         scene.add(model)
     })
 
-    //
-    function setCityMaterial(child) {
+    // 扩散散光
+    function setCityMaterial(object) {
         // 上升线效果实现  (自定义材质)
         /**
          * @author xiangliu
@@ -138,106 +138,64 @@ export function initMap() {
          * @param uCityColor  建筑模型的颜色
          * @param z      模型点位的高度值z
          */
+
         const shader = new THREE.ShaderMaterial({
             uniforms: {
                 height: height,
                 uFlowColor: {
-                    value: new THREE.Color('#5588aa')
+                    value: new THREE.Color('red')
                 },
                 uCityColor: {
-                    value: new THREE.Color('#FFFFDC')
+                    value: new THREE.Color('#1B3045')
                 }
             },
             vertexShader: `
-                varying vec3 vPosition;
-                void main()
-                {
-                  vPosition = position;
-                  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-                }`,
+                    varying vec3 vPosition;
+                    void main()
+                    {
+                      vPosition = position;
+                      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                    }`,
             fragmentShader: `
-                varying vec3 vPosition;
-                  uniform float height;
-                   uniform float uStartTime; 
-                  uniform vec3 uSize;
-                  uniform vec3 uFlow;
-                  uniform vec3 uFlowColor;
-                  uniform vec3 uCityColor;
-                void main()
-                {
-                  //模型的基础颜色
-                 vec3 distColor=uCityColor;
-               // 流动范围当前点z的高度加上流动线的高度
-                 float topY = vPosition.z +5.0;
-              if (height > vPosition.z && height < topY) {
-                  // 颜色渐变 
-                  distColor = uFlowColor; 
-                }
-                 gl_FragColor = vec4(distColor, 0.6);
-                }`,
+            //求距离的公式，平方和开根号
+            float distanceTo(vec2 src,vec2 dst)
+            {
+             float dx=src.x-dst.x;
+             float dy=src.y-dst.y;
+             float dv=dx*dx+dy*dy;
+             return sqrt(dv);
+            }
+            varying vec3 vPosition;
+            uniform float height;
+            uniform vec3 uFlowColor;
+            uniform vec3 uCityColor;
+            void main()
+            {
+             // 模型的基础颜色
+             vec3 distColor=uCityColor;
+             //定位当前点位位置
+             vec2 position2D=vec2(vPosition.x,vPosition.y);
+             //求点到原点的距离
+             float Len=distanceTo(position2D,vec2(0,0));
+             if(Len>height*30.0&&Len<(height*30.0+130.0)){
+                 // 颜色渐变
+                 float dIndex = sin((Len - height*30.0) / 130.0 * 3.14);
+                 //通过上面的渐变值进行颜色混合
+                 distColor= mix(uFlowColor, distColor, 1.0-dIndex);
+             }
+             //最终颜色
+             gl_FragColor=vec4(distColor,1.0);
+             }`,
             transparent: true
-        //     uniforms: {
-        //         height: height,
-        //         uFlowColor: {
-        //             value: new THREE.Color('red')
-        //         },
-        //         uCityColor: {
-        //             value: new THREE.Color('#1B3045')
-        //         }
-        //     },
-        //     vertexShader: `
-        //             varying vec3 vPosition;
-        //             void main()
-        //             {
-        //               vPosition = position;
-        //               gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-        //             }`,
-        //     fragmentShader: `
-        //             float distanceTo(vec2 src,vec2 dst)
-        //             {
-        //                 float dx=src.x-dst.x;
-        //                 float dy=src.y-dst.y;
-        //                 float dv=dx*dx+dy*dy;
-        //                 return sqrt(dv);
-        //             }
-        //             varying vec3 vPosition;
-        //             uniform float height;
-        //             uniform float uStartTime;
-        //             uniform vec3 uSize;
-        //             uniform vec3 uFlowColor;
-        //             uniform vec3 uCityColor;
-        //             void main()
-        //             {
-        //                 //模型的基础颜色
-        //                 vec3 distColor=uCityColor;
-        //                 // 流动范围当前点z的高度加上流动线的高度
-        //                 float topY=vPosition.z+10.;
-        //                 if(height>vPosition.z&&height<topY){
-        //                     // 颜色渐变
-        //                         float dIndex = sin((height - vPosition.z) / 10.0 * 3.14);
-        //                         distColor = mix(uFlowColor, distColor, 1.0-dIndex);
-                    
-        //                 }
-        //                 //定位当前点位位置
-        //                 vec2 position2D=vec2(vPosition.x,vPosition.y);
-        //                 //求点到原点的距离
-        //                 float Len=distanceTo(position2D,vec2(0,0));
-        //                   if(Len>height*30.0&&Len<(height*30.0+130.0)){
-        //                     // 颜色渐变
-        //                     float dIndex = sin((Len - height*30.0) / 130.0 * 3.14);
-        //                     distColor= mix(uFlowColor, distColor, 1.0-dIndex);
-        //                 }
-        //                 gl_FragColor=vec4(distColor,1.0);
-        //             }`,
-        //     transparent: true
         })
-        const city = new THREE.Mesh(child.geometry, shader)
+
+        const city = new THREE.Mesh(object.geometry, shader)
         city.position.set(
-            child.position.x,
-            child.position.y,
-            child.position.z
+            object.position.x,
+            object.position.y,
+            object.position.z
         )
-        // city.rotateX(-Math.PI / 2)
+        city.rotateX(-Math.PI / 2)
         scene.add(city)
     }
 
