@@ -198,6 +198,10 @@ export function initMap() {
         city.rotateX(-Math.PI / 2)
         scene.add(city)
     }
+    // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
+    // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
+    const textureCube = new THREE.CubeTextureLoader().load(['bg6.png', 'bg3.png', 'bg2.png', 'bg1.png', 'bg5.png',  'bg4.png'])
+    scene.background = textureCube
 
     // 创建点光源和环境光源
     const point = new THREE.PointLight(0xffffff)
