@@ -1,6 +1,7 @@
-import * as THREE from 'three/build/three.module'
+import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import RunLine from '@/util/RunLine'
 
 let height = {
     value: 0
@@ -195,13 +196,30 @@ export function initMap() {
             object.position.y,
             object.position.z
         )
-        city.rotateX(-Math.PI / 2)
         scene.add(city)
+        city.rotateX(-Math.PI / 2)
     }
     // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
     // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
     const textureCube = new THREE.CubeTextureLoader().load(['bg6.png', 'bg3.png', 'bg2.png', 'bg1.png', 'bg5.png',  'bg4.png'])
     scene.background = textureCube
+    
+    // 飞线，飞点
+    function creatRunLine() {
+        new RunLine({
+            img: 'z1.png',
+            camera: camera,
+            height: 140,
+            v0: new THREE.Vector3(60, 18, -279),
+            v1: new THREE.Vector3(-17.5, 111.5, -23),
+            el: document.getElementById('scene'),
+            scene: scene,
+            speed: 1,
+            lineWidth: 40,
+            type: 'run'
+        })
+    }
+    creatRunLine()
 
     // 创建点光源和环境光源
     const point = new THREE.PointLight(0xffffff)
