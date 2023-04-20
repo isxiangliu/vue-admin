@@ -1,3 +1,4 @@
+// 飞线，飞点封装
 import * as THREE from 'three'
 import { MeshLine, MeshLineMaterial } from './THREE.MeshLine'
 import { Geometry } from 'three/examples/jsm/deprecated/Geometry'

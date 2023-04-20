@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import RunLine from '@/util/RunLine'
+import RunLine from '@/util/commonThree/RunLine'
 
 let height = {
     value: 0
@@ -18,7 +18,8 @@ export function initMap() {
         1,
         100000
     )
-    camera.position.set(-103.723, 533.241, 3017.000) // 树上面观察
+    // camera.position.set(1710.838, 693.113, 37.605) // 树上面观察
+    camera.position.set(-784.562, 680.583, 2015.717)
     // camera.position.set(200, 30, 200) // 树下面观察
     camera.lookAt(scene.position) // 设置相机方向(指向的场景对象)
 
@@ -31,7 +32,7 @@ export function initMap() {
     function animate() {
         height.value += 0.08
         if (height.value > 50) {
-            height.value = 0.0
+            height.value = 0.0 
         }
         renderer.render(scene, camera)
         controls.update()
@@ -93,7 +94,7 @@ export function initMap() {
                     mesh.rotation.x = -Math.PI / 2
                     scene.add(mesh)
 
-                    setCityMaterial(child)
+                    // setCityMaterial(child)
                 } else if (['ROADS'].includes(child.name)) {
                     // 道路
                     const material = new THREE.MeshBasicMaterial({
@@ -141,6 +142,7 @@ export function initMap() {
          */
 
         const shader = new THREE.ShaderMaterial({
+            flatShading: false,
             uniforms: {
                 height: height,
                 uFlowColor: {
@@ -192,13 +194,14 @@ export function initMap() {
 
         const city = new THREE.Mesh(object.geometry, shader)
         city.position.set(
-            object.position.x,
-            object.position.y,
-            object.position.z
+            object.position.x - 2,
+            object.position.y - 2,
+            object.position.z - 2
         )
         scene.add(city)
-        city.rotateX(-Math.PI / 2)
+        // city.rotateX(-Math.PI / 2)
     }
+
     // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
     // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
     const textureCube = new THREE.CubeTextureLoader().load(['bg6.png', 'bg3.png', 'bg2.png', 'bg1.png', 'bg5.png',  'bg4.png'])
@@ -209,13 +212,25 @@ export function initMap() {
         new RunLine({
             img: 'z1.png',
             camera: camera,
-            height: 140,
-            v0: new THREE.Vector3(60, 18, -279),
+            height: 540,
+            v0: new THREE.Vector3(-533, 410, 1350),
             v1: new THREE.Vector3(-17.5, 111.5, -23),
             el: document.getElementById('scene'),
             scene: scene,
             speed: 1,
-            lineWidth: 40,
+            lineWidth: 30,
+            type: 'run'
+        })
+        new RunLine({
+            img: 'z_11.png',
+            camera: camera,
+            height: 540,
+            v0: new THREE.Vector3(-533, 410, 1350),
+            v1: new THREE.Vector3(-470, 200, -600),
+            el: document.getElementById('scene'),
+            scene: scene,
+            speed: 1,
+            lineWidth: 30,
             type: 'run'
         })
     }
