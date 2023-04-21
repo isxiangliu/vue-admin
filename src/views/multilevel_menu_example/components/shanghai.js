@@ -20,16 +20,16 @@ export function initMap() {
         1,
         100000
     )
-    // camera.position.set(1710.838, 693.113, 37.605) // 树上面观察
-    camera.position.set(-784.562, 680.583, 2015.717)
+    camera.position.set(3735.598, 567.514, 420.058) // 树上面观察
+    // camera.position.set(-784.562, 680.583, 2015.717)
     // camera.position.set(200, 30, 200) // 树下面观察
     camera.lookAt(scene.position) // 设置相机方向(指向的场景对象)
 
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true// 添加阻尼感 真实
 
-    const axesHelper = new THREE.AxesHelper(5000)
-    scene.add(axesHelper)
+    // const axesHelper = new THREE.AxesHelper(5000)
+    // scene.add(axesHelper)
      
     function animate() {
         height.value += 0.08
@@ -96,7 +96,6 @@ export function initMap() {
                     mesh.rotation.x = -Math.PI / 2
                     scene.add(mesh)
 
-                    // setCityMaterial(child)
                 } else if (['ROADS'].includes(child.name)) {
                     // 道路
                     const material = new THREE.MeshBasicMaterial({
@@ -129,82 +128,6 @@ export function initMap() {
         })
         scene.add(model)
     })
-    
-    // 扩散散光
-    // function setCityMaterial(object) {
-    //     // 上升线效果实现  (自定义材质)
-    //     /**
-    //      * @author xiangliu
-    //      * @description: 这个效果的实现需要四个值
-    //      * @date 2023-04-18 14:47
-    //      * @param height      线上升到的高度
-    //      * @param uFlowColor  上升线的颜色
-    //      * @param uCityColor  建筑模型的颜色
-    //      * @param z      模型点位的高度值z
-    //      */
-
-    //     const shader = new THREE.MeshBasicMaterial({
-    //         // flatShading: false,
-    //         uniforms: {
-    //             height: height,
-    //             uFlowColor: {
-    //                 value: new THREE.Color('red')
-    //             },
-    //             uCityColor: {
-    //                 value: new THREE.Color('#1B3045')
-    //             }
-    //         },
-    //         vertexShader: `
-    //                 varying vec3 vPosition;
-    //                 void main()
-    //                 {
-    //                   vPosition = position;
-    //                   gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-    //                 }`,
-    //         fragmentShader: `
-    //         //求距离的公式，平方和开根号
-    //         float distanceTo(vec2 src,vec2 dst)
-    //         {
-    //          float dx=src.x-dst.x;
-    //          float dy=src.y-dst.y;
-    //          float dv=dx*dx+dy*dy;
-    //          return sqrt(dv);
-    //         }
-    //         varying vec3 vPosition;
-    //         uniform float height;
-    //         uniform vec3 uFlowColor;
-    //         uniform vec3 uCityColor;
-    //         void main()
-    //         {
-    //          // 模型的基础颜色
-    //          vec3 distColor=uCityColor;
-    //          //定位当前点位位置
-    //          vec2 position2D=vec2(vPosition.x,vPosition.y);
-    //          //求点到原点的距离
-    //          float Len=distanceTo(position2D,vec2(0,0));
-    //          if(Len>height*30.0&&Len<(height*30.0+130.0)){
-    //              // 颜色渐变
-    //              float dIndex = sin((Len - height*30.0) / 130.0 * 3.14);
-    //              //通过上面的渐变值进行颜色混合
-    //              distColor= mix(uFlowColor, distColor, 1.0-dIndex);
-    //          }
-    //          //最终颜色
-    //          gl_FragColor=vec4(distColor,1.0);
-    //          }`,
-    //         transparent: true
-    //     })
-
-    //     const city = new THREE.Mesh(object.geometry, shader)
-    //     city.position.set(
-    //         object.position.x - 2,
-    //         object.position.y - 2,
-    //         object.position.z - 2
-    //     )
-    //     scene.add(city)
-    //     // city.rotateX(-Math.PI / 2)
-    // }
-
-    // 扩散散光
     
     // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
     // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
