@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import RunLine from '@/util/commonThree/RunLine'
+import RunRing from '@/util/commonThree/RunRing'
+import Wall from '@/util/commonThree/Wall'
 
 let height = {
     value: 0
@@ -28,7 +30,7 @@ export function initMap() {
 
     const axesHelper = new THREE.AxesHelper(5000)
     scene.add(axesHelper)
-
+     
     function animate() {
         height.value += 0.08
         if (height.value > 50) {
@@ -127,81 +129,83 @@ export function initMap() {
         })
         scene.add(model)
     })
+    
+    // 扩散散光
+    // function setCityMaterial(object) {
+    //     // 上升线效果实现  (自定义材质)
+    //     /**
+    //      * @author xiangliu
+    //      * @description: 这个效果的实现需要四个值
+    //      * @date 2023-04-18 14:47
+    //      * @param height      线上升到的高度
+    //      * @param uFlowColor  上升线的颜色
+    //      * @param uCityColor  建筑模型的颜色
+    //      * @param z      模型点位的高度值z
+    //      */
+
+    //     const shader = new THREE.MeshBasicMaterial({
+    //         // flatShading: false,
+    //         uniforms: {
+    //             height: height,
+    //             uFlowColor: {
+    //                 value: new THREE.Color('red')
+    //             },
+    //             uCityColor: {
+    //                 value: new THREE.Color('#1B3045')
+    //             }
+    //         },
+    //         vertexShader: `
+    //                 varying vec3 vPosition;
+    //                 void main()
+    //                 {
+    //                   vPosition = position;
+    //                   gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    //                 }`,
+    //         fragmentShader: `
+    //         //求距离的公式，平方和开根号
+    //         float distanceTo(vec2 src,vec2 dst)
+    //         {
+    //          float dx=src.x-dst.x;
+    //          float dy=src.y-dst.y;
+    //          float dv=dx*dx+dy*dy;
+    //          return sqrt(dv);
+    //         }
+    //         varying vec3 vPosition;
+    //         uniform float height;
+    //         uniform vec3 uFlowColor;
+    //         uniform vec3 uCityColor;
+    //         void main()
+    //         {
+    //          // 模型的基础颜色
+    //          vec3 distColor=uCityColor;
+    //          //定位当前点位位置
+    //          vec2 position2D=vec2(vPosition.x,vPosition.y);
+    //          //求点到原点的距离
+    //          float Len=distanceTo(position2D,vec2(0,0));
+    //          if(Len>height*30.0&&Len<(height*30.0+130.0)){
+    //              // 颜色渐变
+    //              float dIndex = sin((Len - height*30.0) / 130.0 * 3.14);
+    //              //通过上面的渐变值进行颜色混合
+    //              distColor= mix(uFlowColor, distColor, 1.0-dIndex);
+    //          }
+    //          //最终颜色
+    //          gl_FragColor=vec4(distColor,1.0);
+    //          }`,
+    //         transparent: true
+    //     })
+
+    //     const city = new THREE.Mesh(object.geometry, shader)
+    //     city.position.set(
+    //         object.position.x - 2,
+    //         object.position.y - 2,
+    //         object.position.z - 2
+    //     )
+    //     scene.add(city)
+    //     // city.rotateX(-Math.PI / 2)
+    // }
 
     // 扩散散光
-    function setCityMaterial(object) {
-        // 上升线效果实现  (自定义材质)
-        /**
-         * @author xiangliu
-         * @description: 这个效果的实现需要四个值
-         * @date 2023-04-18 14:47
-         * @param height      线上升到的高度
-         * @param uFlowColor  上升线的颜色
-         * @param uCityColor  建筑模型的颜色
-         * @param z      模型点位的高度值z
-         */
-
-        const shader = new THREE.ShaderMaterial({
-            flatShading: false,
-            uniforms: {
-                height: height,
-                uFlowColor: {
-                    value: new THREE.Color('red')
-                },
-                uCityColor: {
-                    value: new THREE.Color('#1B3045')
-                }
-            },
-            vertexShader: `
-                    varying vec3 vPosition;
-                    void main()
-                    {
-                      vPosition = position;
-                      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-                    }`,
-            fragmentShader: `
-            //求距离的公式，平方和开根号
-            float distanceTo(vec2 src,vec2 dst)
-            {
-             float dx=src.x-dst.x;
-             float dy=src.y-dst.y;
-             float dv=dx*dx+dy*dy;
-             return sqrt(dv);
-            }
-            varying vec3 vPosition;
-            uniform float height;
-            uniform vec3 uFlowColor;
-            uniform vec3 uCityColor;
-            void main()
-            {
-             // 模型的基础颜色
-             vec3 distColor=uCityColor;
-             //定位当前点位位置
-             vec2 position2D=vec2(vPosition.x,vPosition.y);
-             //求点到原点的距离
-             float Len=distanceTo(position2D,vec2(0,0));
-             if(Len>height*30.0&&Len<(height*30.0+130.0)){
-                 // 颜色渐变
-                 float dIndex = sin((Len - height*30.0) / 130.0 * 3.14);
-                 //通过上面的渐变值进行颜色混合
-                 distColor= mix(uFlowColor, distColor, 1.0-dIndex);
-             }
-             //最终颜色
-             gl_FragColor=vec4(distColor,1.0);
-             }`,
-            transparent: true
-        })
-
-        const city = new THREE.Mesh(object.geometry, shader)
-        city.position.set(
-            object.position.x - 2,
-            object.position.y - 2,
-            object.position.z - 2
-        )
-        scene.add(city)
-        // city.rotateX(-Math.PI / 2)
-    }
-
+    
     // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
     // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
     const textureCube = new THREE.CubeTextureLoader().load(['bg6.png', 'bg3.png', 'bg2.png', 'bg1.png', 'bg5.png',  'bg4.png'])
@@ -235,6 +239,39 @@ export function initMap() {
         })
     }
     creatRunLine()
+
+    // 圆扩散
+    function creatRing() {
+        new RunRing({
+            img: 'clice.png',
+            scene: scene,
+            speed: 1,
+            radius: 300,
+            position: [
+                [400, 20, 400]
+                // [100, 20, 1200]
+            ]
+        })
+    }
+    creatRing()
+
+    // 墙外圈特效
+    function creatWall() {
+        const wallData = {
+            speed: 0.5,
+            color: '#efad35',
+            opacity: 1,
+            radius: 420,
+            height: 180,
+            renderOrder: 5
+        }
+  
+        let wallMesh = new Wall(wallData)
+        wallMesh.mesh.material.uniforms.time = height
+        wallMesh.mesh.position.set(-400, 0, -200)
+        scene.add(wallMesh.mesh)
+    }
+    creatWall()
 
     // 创建点光源和环境光源
     const point = new THREE.PointLight(0xffffff)
