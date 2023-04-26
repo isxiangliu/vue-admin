@@ -28,6 +28,18 @@ export function initMap() {
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true// 添加阻尼感 真实
 
+    // controls.dampingFactor = 0.25// //动态阻尼系数 即鼠标拖拽旋转的灵敏度
+    // 上下旋转范围
+    controls.minPolarAngle = 0
+    controls.maxPolarAngle = 1.5
+    // 开启自动旋转
+    controls.autoRotate = true
+    controls.autoRotateSpeed = 0.5  // 速率 值越小转动越慢
+    // 惯性滑动，滑动大小默认0.25
+    controls.dampingFactor = 0.25
+    // 缩放倍数 滚轮是否可控制zoom，zoom速度默认1
+    controls.zoomSpeed = 3.0
+
     // const axesHelper = new THREE.AxesHelper(5000)
     // scene.add(axesHelper)
      
@@ -46,8 +58,12 @@ export function initMap() {
         }
     }
     animate()
-
-    const loader = new GLTFLoader()
+    
+    const manager = new THREE.LoadingManager()
+    manager.onProgress = function(item, loaded, total) {
+        console.log((loaded / total) * 100 + '%', '加载时间')
+    }
+    const loader = new GLTFLoader(manager)
     loader.load('/seraphine/shanghai.gltf', gltf => {
         let model = gltf.scene
         // 模型材质分为两个部分，第一部分是模型的线框材质，第二部分是模型的面材质，首先来说线框材质
@@ -100,7 +116,6 @@ export function initMap() {
                     // 道路
                     const material = new THREE.MeshBasicMaterial({
                         color: '#292E2F'
-
                     })
                     const roadsMesh = new THREE.Mesh(child.geometry, material)
                     roadsMesh.position.set(
@@ -127,7 +142,18 @@ export function initMap() {
             }
         })
         scene.add(model)
-    })
+    },
+    function(xhr) {
+        // console.log(xhr)
+        // 侦听模型加载进度
+        // console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+    },
+    function(error) {
+        // 加载出错时的回调
+        console.log(error)
+        console.log('An error happened')
+    }
+    )
     
     // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
     // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
@@ -195,6 +221,30 @@ export function initMap() {
         scene.add(wallMesh.mesh)
     }
     creatWall()
+
+    // 光柱特效
+    function creatLight() {
+        const loader = new THREE.TextureLoader()
+        let plane = new THREE.PlaneGeometry(50, 200)
+        let  material = new THREE.MeshBasicMaterial({
+            // 设置矩形网格模型的纹理贴图(光柱特效)
+            map: loader.load('光柱2.png'),
+            // 灰度纹理 背景隐藏掉
+            alphaMap: loader.load('光柱2.png'), // 设置透明纹理层
+            // 双面显示
+            side: THREE.DoubleSide,
+            transparent: true
+            // color: 'red'
+        })
+        let mesh = new THREE.Mesh(plane, material)
+        mesh.position.set(140, 140, 0)
+        // 克隆网格模型mesh，并旋转90度
+        let newMesh = mesh.clone().rotateY(Math.PI / 2)
+        let groupMesh = new THREE.Group()
+        groupMesh.add(mesh, newMesh)
+        scene.add(groupMesh)
+    }
+    creatLight()
 
     // 创建点光源和环境光源
     const point = new THREE.PointLight(0xffffff)

@@ -223,7 +223,7 @@ export default {
     methods: {
         init() {
             initMap()  // 上海模型
-            initModel() // 人型阴影模型
+            // initModel() // 人型阴影模型
         },
         getList(val) {
             console.log('表格数据更新')
