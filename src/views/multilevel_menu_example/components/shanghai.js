@@ -146,7 +146,7 @@ export function initMap() {
     function(xhr) {
         // console.log(xhr)
         // 侦听模型加载进度
-        // console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
     },
     function(error) {
         // 加载出错时的回调

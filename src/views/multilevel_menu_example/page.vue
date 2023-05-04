@@ -8,18 +8,18 @@
                 :style="{ width: screenWidth - 110 + 'px', height: screenHeight - 110 + 'px' }"
             />
         </el-dialog>
-        <PageMain>
+        <PageMain style="padding: 0;">
             <div id="scene" />
         </PageMain>
-        <PageMain>
+        <!-- <PageMain>
             <canvas id="three" />
-        </PageMain>
+        </PageMain> -->
         <PageMain class="viewNav">
             <el-row :gutter="10">  
-                <el-col :span="12">
+                <el-col :span="settings.mode=='mobile'? 24:12">
                     <map-chart ref="mapChart" class="mapChart" style="height: 500px;" />
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="settings.mode=='mobile'? 24:12">
                     <AllAgeEmployees :chart-data="circleChartData" style="height: 500px;" />
                 </el-col>
                 <el-col :span="24">
@@ -152,6 +152,7 @@ import AllAgeEmployees from './components/AllAgeEmployees'
 import Chart from '@/mixin/chart'
 import { initMap } from '@/views/multilevel_menu_example/components/shanghai'
 import {initModel} from '@/views/multilevel_menu_example/components/model'
+import {mapState} from 'vuex'
 export default {
     components: {
         ExampleNotice,
@@ -191,6 +192,9 @@ export default {
                 data: []
             }
         }
+    },
+    computed: {
+        ...mapState(['settings'])
     },
     watch: {
         screenHeight(val) {
