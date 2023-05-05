@@ -64,7 +64,7 @@ export function initMap() {
         console.log((loaded / total) * 100 + '%', '加载时间')
     }
     const loader = new GLTFLoader(manager)
-    loader.load('/seraphine/shanghai.gltf', gltf => {
+    loader.load('seraphine/shanghai.gltf', gltf => {
         let model = gltf.scene
         // 模型材质分为两个部分，第一部分是模型的线框材质，第二部分是模型的面材质，首先来说线框材质
         model.traverse(child => {
@@ -268,3 +268,14 @@ export function initMap() {
         return needResize
     }
 }
+
+// 项目名称: 智中台(pc 端) --8个月
+// 使用技术: React、ES6、Webpack、Redux、Hooks、Ant Design、Three.js
+// 项目描述:数据中台把多个独立的系统进行业务、技术、数据整合统一，数据资源整合优化再分配。
+// 它的最终目的就是为了达到数据变成数据资产之后，更方便提供应用服务。
+// 负责内容:
+// 1.使用React框架，模块化设计，实现前端web页面
+// 2.使用 Ant design u! 库绘制页面中的表格、弹框等
+// 3.根据业务需求，使用 Echarts 实现报表图形化展示、Ant design 进行页面编写
+// 4.封装request请求，对项目请求进行统一拦截，对项目请求方法进行规范化。
+// 5.首页中台智慧机场3D可视化打造、实现模型改造、散光

@@ -35,7 +35,7 @@ export function initModel() {
     animate()
 
     const gltfLoader = new GLTFLoader()
-    gltfLoader.load('/seraphine/scene.gltf', gltf => {
+    gltfLoader.load('seraphine/scene.gltf', gltf => {
         let model = gltf.scene
         // 遍历模型每部分
         model.traverse(i => {
