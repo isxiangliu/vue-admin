@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import RunLine from '@/util/commonThree/RunLine'
 import RunRing from '@/util/commonThree/RunRing'
 import Wall from '@/util/commonThree/Wall'
@@ -63,8 +64,13 @@ export function initMap() {
     manager.onProgress = function(item, loaded, total) {
         console.log((loaded / total) * 100 + '%', '加载时间')
     }
+    // 定义解析加载器
+    const dracoLoader = new DRACOLoader().setDecoderPath('gltf/')
+    dracoLoader.setDecoderConfig({ type: 'js' })
+    dracoLoader.preload()
     const loader = new GLTFLoader(manager)
-    loader.load('seraphine/shanghai.gltf', gltf => {
+    loader.setDRACOLoader(dracoLoader)
+    loader.load('seraphine/shanghaiDraco.gltf', gltf => {
         let model = gltf.scene
         // 模型材质分为两个部分，第一部分是模型的线框材质，第二部分是模型的面材质，首先来说线框材质
         model.traverse(child => {
