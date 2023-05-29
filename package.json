@@ -11,6 +11,8 @@
         "svgo": "svgo -f src/assets/icons"
     },
     "dependencies": {
+        "@tweenjs/tween.js": "^18.6.4",
+        "lil-gui": "^0.18.1",
         "@tinymce/tinymce-vue": "^3.2.6",
         "axios": "^0.21.0",
         "core-js": "^3.6.4",
