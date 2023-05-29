@@ -4973,10 +4973,22 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.npmmirror.com/graceful-fs/-/graceful-fs-4.2.10.tgz"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
+<<<<<<< HEAD
 gzip-size@^5.0.0:
   version "5.1.1"
   resolved "https://registry.npmmirror.com/gzip-size/-/gzip-size-5.1.1.tgz"
   integrity sha512-FNHi6mmoHvs1mxZAds4PpdCS6QG8B4C1krxJsMutgxl5t3+GlRTzzI3NEkifXx2pVsOvJdOGSmIgDhQ55FwdPA==
+=======
+"gsap@^3.11.5":
+  "integrity" "sha512-Q89nKCLgoX5xUjznh9LcaIUkz54k1voNucT1Rpf9SJNFIQznBwFqt5qUUQbeVInFyN/n18OUJkpeI6CNEDt74w=="
+  "resolved" "https://registry.npmmirror.com/gsap/-/gsap-3.11.5.tgz"
+  "version" "3.11.5"
+
+"gzip-size@^5.0.0":
+  "integrity" "sha512-FNHi6mmoHvs1mxZAds4PpdCS6QG8B4C1krxJsMutgxl5t3+GlRTzzI3NEkifXx2pVsOvJdOGSmIgDhQ55FwdPA=="
+  "resolved" "https://registry.npmmirror.com/gzip-size/-/gzip-size-5.1.1.tgz"
+  "version" "5.1.1"
+>>>>>>> 4627cb793997b28786c6066d0322500fef2e6d4f
   dependencies:
     duplexer "^0.1.1"
     pify "^4.0.1"

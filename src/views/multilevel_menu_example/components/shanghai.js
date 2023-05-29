@@ -1,7 +1,10 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import RunLine from '@/util/RunLine'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import RunLine from '@/util/commonThree/RunLine'
+import RunRing from '@/util/commonThree/RunRing'
+import Wall from '@/util/commonThree/Wall'
 
 let height = {
     value: 0
@@ -18,20 +21,33 @@ export function initMap() {
         1,
         100000
     )
-    camera.position.set(-103.723, 533.241, 3017.000) // 树上面观察
+    camera.position.set(3735.598, 567.514, 420.058) // 树上面观察
+    // camera.position.set(-784.562, 680.583, 2015.717)
     // camera.position.set(200, 30, 200) // 树下面观察
     camera.lookAt(scene.position) // 设置相机方向(指向的场景对象)
 
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true// 添加阻尼感 真实
 
-    const axesHelper = new THREE.AxesHelper(5000)
-    scene.add(axesHelper)
+    // controls.dampingFactor = 0.25// //动态阻尼系数 即鼠标拖拽旋转的灵敏度
+    // 上下旋转范围
+    controls.minPolarAngle = 0
+    controls.maxPolarAngle = 1.5
+    // 开启自动旋转
+    controls.autoRotate = true
+    controls.autoRotateSpeed = 0.5  // 速率 值越小转动越慢
+    // 惯性滑动，滑动大小默认0.25
+    controls.dampingFactor = 0.25
+    // 缩放倍数 滚轮是否可控制zoom，zoom速度默认1
+    controls.zoomSpeed = 3.0
 
+    // const axesHelper = new THREE.AxesHelper(5000)
+    // scene.add(axesHelper)
+     
     function animate() {
         height.value += 0.08
         if (height.value > 50) {
-            height.value = 0.0
+            height.value = 0.0 
         }
         renderer.render(scene, camera)
         controls.update()
@@ -43,9 +59,18 @@ export function initMap() {
         }
     }
     animate()
-
-    const loader = new GLTFLoader()
-    loader.load('/seraphine/shanghai.gltf', gltf => {
+    
+    const manager = new THREE.LoadingManager()
+    manager.onProgress = function(item, loaded, total) {
+        console.log((loaded / total) * 100 + '%', '加载时间')
+    }
+    // 定义解析加载器
+    const dracoLoader = new DRACOLoader().setDecoderPath('gltf/')
+    dracoLoader.setDecoderConfig({ type: 'js' })
+    dracoLoader.preload()
+    const loader = new GLTFLoader(manager)
+    loader.setDRACOLoader(dracoLoader)
+    loader.load('seraphine/shanghaiDraco.gltf', gltf => {
         let model = gltf.scene
         // 模型材质分为两个部分，第一部分是模型的线框材质，第二部分是模型的面材质，首先来说线框材质
         model.traverse(child => {
@@ -92,13 +117,11 @@ export function initMap() {
                     )
                     mesh.rotation.x = -Math.PI / 2
                     scene.add(mesh)
-
                     setCityMaterial(child)
                 } else if (['ROADS'].includes(child.name)) {
                     // 道路
                     const material = new THREE.MeshBasicMaterial({
                         color: '#292E2F'
-
                     })
                     const roadsMesh = new THREE.Mesh(child.geometry, material)
                     roadsMesh.position.set(
@@ -125,7 +148,18 @@ export function initMap() {
             }
         })
         scene.add(model)
-    })
+    },
+    function(xhr) {
+        // console.log(xhr)
+        // 侦听模型加载进度
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+    },
+    function(error) {
+        // 加载出错时的回调
+        console.log(error)
+        console.log('An error happened')
+    }
+    )
 
     // 扩散散光
     function setCityMaterial(object) {
@@ -208,6 +242,7 @@ export function initMap() {
         scene.add(city)
         city.rotateX(-Math.PI / 2)
     }
+    
     // x轴： -X->+Z->+X->-Z     上+Y->下-Y                    +X         -X            +Y        -Y        +Z          -Z
     // 天空盒  主要就是6张图构建整个场景的图片。这六张图分别是   朝前的、    朝后的、     朝上的、   朝下的、    朝右的      朝左的
     const textureCube = new THREE.CubeTextureLoader().load(['bg6.png', 'bg3.png', 'bg2.png', 'bg1.png', 'bg5.png',  'bg4.png'])
@@ -218,17 +253,86 @@ export function initMap() {
         new RunLine({
             img: 'z1.png',
             camera: camera,
-            height: 140,
-            v0: new THREE.Vector3(60, 18, -279),
+            height: 540,
+            v0: new THREE.Vector3(-533, 410, 1350),
             v1: new THREE.Vector3(-17.5, 111.5, -23),
             el: document.getElementById('scene'),
             scene: scene,
             speed: 1,
-            lineWidth: 40,
+            lineWidth: 30,
+            type: 'run'
+        })
+        new RunLine({
+            img: 'z_11.png',
+            camera: camera,
+            height: 540,
+            v0: new THREE.Vector3(-533, 410, 1350),
+            v1: new THREE.Vector3(-470, 200, -600),
+            el: document.getElementById('scene'),
+            scene: scene,
+            speed: 1,
+            lineWidth: 30,
             type: 'run'
         })
     }
     creatRunLine()
+
+    // 圆扩散
+    function creatRing() {
+        new RunRing({
+            img: 'clice.png',
+            scene: scene,
+            speed: 1,
+            radius: 300,
+            position: [
+                [400, 20, 400]
+                // [100, 20, 1200]
+            ]
+        })
+    }
+    creatRing()
+
+    // 墙外圈特效
+    function creatWall() {
+        const wallData = {
+            speed: 0.5,
+            color: '#efad35',
+            opacity: 1,
+            radius: 420,
+            height: 180,
+            renderOrder: 5
+        }
+  
+        let wallMesh = new Wall(wallData)
+        wallMesh.mesh.material.uniforms.time = height
+        wallMesh.mesh.position.set(-400, 0, -200)
+        scene.add(wallMesh.mesh)
+    }
+    creatWall()
+
+    // 光柱特效
+    function creatLight() {
+        const loader = new THREE.TextureLoader()
+        let plane = new THREE.PlaneGeometry(50, 200)
+        let  material = new THREE.MeshBasicMaterial({
+            // 设置矩形网格模型的纹理贴图(光柱特效)
+            map: loader.load('光柱2.png'),
+            // 灰度纹理 背景隐藏掉
+            alphaMap: loader.load('光柱2.png'), // 设置透明纹理层
+            // 双面显示
+            side: THREE.DoubleSide,
+            transparent: true
+            // color: 'red'
+        })
+        let mesh = new THREE.Mesh(plane, material)
+        mesh.position.set(140, 140, 0)
+        // 克隆网格模型mesh，并旋转90度
+        let newMesh = mesh.clone().rotateY(Math.PI / 2)
+        let groupMesh = new THREE.Group()
+        groupMesh.add(mesh, newMesh)
+        scene.add(groupMesh)
+    }
+    creatLight()
 
     // 创建点光源和环境光源
     const point = new THREE.PointLight(0xffffff)

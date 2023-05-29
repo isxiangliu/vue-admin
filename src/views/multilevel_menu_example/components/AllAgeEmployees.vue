@@ -42,6 +42,7 @@ export default {
         /* 图表初始化 */
         this.initChart(this.$el, 'custom-theme')
         this.showChartLoading()
+        console.log(this.chart, '11')
     },
     methods: {
         setOptions(data) {

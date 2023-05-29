@@ -83,6 +83,11 @@ export default {
 
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
+[data-mode='mobile'] {
+    .base-btn {
+        margin-left: 0 !important;
+    }
+}
 .card-container {
     background-color: #fff;
     border-radius: 6px;
