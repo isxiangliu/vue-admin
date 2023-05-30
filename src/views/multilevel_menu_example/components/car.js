@@ -53,6 +53,9 @@ export function initCar() {
         controls.minPolarAngle = 0
         controls.maxPolarAngle = 1.5
 
+        // 开启自动旋转
+        controls.autoRotate = true
+        controls.autoRotateSpeed = 0.8  // 速率 值越小转动越慢
     }
 
     // 绘制地面网格
@@ -76,13 +79,14 @@ export function initCar() {
         roughness: 0,
         transmission: 1.0 // 透光性 transmission属性可以让一些很薄的透明表面 例如玻璃 变得更真实
     })
+    
     // gltf 模型
     function loadCarModel() {
         //  定义解析加载器
         const dracoLoader = new DRACOLoader().setDecoderPath('gltf/')
         dracoLoader.setDecoderConfig({ type: 'js' })
         dracoLoader.preload()
-        const loader =  new GLTFLoader()
+        const loader = new GLTFLoader(manager)
         loader.setDRACOLoader(dracoLoader)
         loader.load('seraphine/LamborghiniDraco.gltf', gltf => {
             const carModel = gltf.scene
@@ -101,11 +105,31 @@ export function initCar() {
                 }
             })
             scene.add(carModel)
-        }, undefined, function(error) {
+        }, xhr => {
+            // console.log(xhr)
+            // 侦听模型加载进度
+            // console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        }, error => {
             //  加载出错时的回调
             console.log(error)
             console.log('An error happened')
-        })
+        }
+        )
+    }
+    
+    const manager = new THREE.LoadingManager()
+    manager.onProgress = function(item, loaded, total) {
+        total != 9 ? total = 9 : total
+        let jindu_text_con = document.getElementById('jindu-text-con')
+        let jindu_text = document.getElementById('jindu-text')
+        let jindu = document.getElementById('jindu')
+
+        let onProgress = parseInt((loaded / total) * 100)
+        jindu_text.innerText = onProgress + '%'
+        jindu.style.width = onProgress + '%'
+        if (onProgress == 100) {
+            jindu_text_con.style.display = 'none'
+        }
     }
 
     // 环境光处理
@@ -190,10 +214,12 @@ export function initCar() {
         }
     }
     function carIn() {
+        controls.autoRotate = false
         // 相机位置 轨道位置  开始-结束
         setAnimationCamera({ cx: 4.25, cy: 1.4, cz: -4.5, ox: 0, oy: 0.5, oz: 0 }, { cx: -0.27, cy: 0.83, cz: 0.60, ox: 0, oy: 0.5, oz: -3 })
     }
     function catOut() {
+        controls.autoRotate = true
         setAnimationCamera({ cx: -0.27, cy: 0.83, cz: 0.6, ox: 0, oy: 0.5, oz: -3 }, { cx: 4.25, cy: 1.4, cz: -4.5, ox: 0, oy: 0.5, oz: 0 })
     }
 
@@ -220,7 +246,7 @@ export function initCar() {
         initScene()         // 场景
         initCamera()        // 相机
         initRenderer()      // 渲染器
-        initAxesHelper()    // 坐标
+        // initAxesHelper()    // 坐标
         initOrbitControls() // 轨道控制器
         //  initGridHelper()    // 地面网格
         loadCarModel()      // gltf 模型

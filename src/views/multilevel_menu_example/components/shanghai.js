@@ -62,7 +62,7 @@ export function initMap() {
     
     const manager = new THREE.LoadingManager()
     manager.onProgress = function(item, loaded, total) {
-        console.log((loaded / total) * 100 + '%', '加载时间')
+        // console.log((loaded / total) * 100 + '%', '加载时间')
     }
     // 定义解析加载器
     const dracoLoader = new DRACOLoader().setDecoderPath('gltf/')
@@ -152,7 +152,7 @@ export function initMap() {
     function(xhr) {
         // console.log(xhr)
         // 侦听模型加载进度
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        // console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
     },
     function(error) {
         // 加载出错时的回调

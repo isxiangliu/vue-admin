@@ -12,17 +12,24 @@
             <div id="scene" />
         </PageMain>
         <PageMain style="padding: 0;">
-            <div id="car" />
+            <div id="car">
+                <div id="jindu-text-con">
+                    正在加载模型请稍等：<span id="jindu-text" />
+                    <div class="jindu-con">
+                        <div id="jindu" />
+                    </div>
+                </div>
+            </div>
         </PageMain>
         <!-- <PageMain>
             <canvas id="three" />
         </PageMain> -->
         <PageMain class="viewNav">
-            <el-row :gutter="10">  
-                <el-col :span="settings.mode=='mobile'? 24:12">
+            <el-row :gutter="10">
+                <el-col :span="settings.mode == 'mobile' ? 24 : 12">
                     <map-chart ref="mapChart" class="mapChart" style="height: 500px;" />
                 </el-col>
-                <el-col :span="settings.mode=='mobile'? 24:12">
+                <el-col :span="settings.mode == 'mobile' ? 24 : 12">
                     <AllAgeEmployees :chart-data="circleChartData" style="height: 500px;" />
                 </el-col>
                 <el-col :span="24">
@@ -154,9 +161,9 @@ import BlockTitle from './components/BlockTitle'
 import AllAgeEmployees from './components/AllAgeEmployees'
 import Chart from '@/mixin/chart'
 import { initMap } from '@/views/multilevel_menu_example/components/shanghai'
-import {initModel} from '@/views/multilevel_menu_example/components/model'
-import {initCar} from '@/views/multilevel_menu_example/components/car'
-import {mapState} from 'vuex'
+import { initModel } from '@/views/multilevel_menu_example/components/model'
+import { initCar } from '@/views/multilevel_menu_example/components/car'
+import { mapState } from 'vuex'
 export default {
     components: {
         ExampleNotice,
@@ -208,8 +215,7 @@ export default {
             this.screenWidth = val
         }
     },
-    created() {
-    },
+    created() {},
     mounted() {
         // const option = {
         //   content: '测试水印',
@@ -229,10 +235,10 @@ export default {
         this.init()
     },
     methods: {
-        init() {
-            initMap()  // 上海模型
+        async init() {
+            await initMap() // 上海模型
             // initModel() // 人型阴影模型
-            initCar()
+            await initCar()
         },
         getList(val) {
             console.log('表格数据更新')
@@ -375,6 +381,29 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .jindu-con {
+        width: 280px;
+        height: 10px;
+        border-radius: 50px;
+        background-color: white;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+    #jindu {
+        height: inherit;
+        background-color: #007bff;
+        width: 0;
+    }
+    #jindu-text-con {
+        width: 300px;
+        position: absolute;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 10px;
+    }
 }
 </style>
 

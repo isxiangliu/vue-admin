@@ -62,7 +62,6 @@ export default {
         }
     },
     data() {
-
         return {
             currentId: -1,
             searchVal: '',
