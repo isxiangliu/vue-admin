@@ -11,8 +11,8 @@
         <PageMain style="padding: 0;">
             <div id="scene" />
         </PageMain>
-        <PageMain>
-            <canvas id="three" />
+        <PageMain style="padding: 0;">
+            <div id="car" />
         </PageMain>
         <!-- <PageMain>
             <canvas id="three" />
@@ -367,6 +367,11 @@ export default {
     height: 100%;
 }
 #scene {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#car {
     width: 100%;
     height: 100%;
     overflow: hidden;
