@@ -110,7 +110,7 @@ module.exports = {
                         test: /\.(js|css|gltf|png|html|vue)$/, // 匹配文件名
                         threshold: 10240, // 对超过10k的数据压缩
                         deleteOriginalAssets: false, // 不删除源文件
-                        minRatio: 0.6 // 压缩比
+                        minRatio: 1 // 压缩比
                     })
                 ]
             }
