@@ -7,3 +7,6 @@ token验证登录、axios二次封装响应拦截（可与后端沟通作为修�
 布局和主题更改可通过配置项更改
 
 https://tinypng.com/ 照片压缩
+
+//glb压缩
+https://blog.csdn.net/qq_38323658/article/details/118016680
