@@ -11,7 +11,7 @@
         <PageMain style="padding: 0;">
             <div id="scene" />
         </PageMain>
-        <PageMain style="padding: 0;">
+        <!-- <PageMain style="padding: 0;">
             <div id="car">
                 <div id="jindu-text-con">
                     正在加载模型请稍等：<span id="jindu-text" />
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-        </PageMain>
+        </PageMain> -->
         <!-- <PageMain>
             <canvas id="three" />
         </PageMain> -->
@@ -161,8 +161,8 @@ import BlockTitle from './components/BlockTitle'
 import AllAgeEmployees from './components/AllAgeEmployees'
 import Chart from '@/mixin/chart'
 import { initMap } from '@/views/multilevel_menu_example/components/shanghai'
-import { initModel } from '@/views/multilevel_menu_example/components/model'
-import { initCar } from '@/views/multilevel_menu_example/components/car'
+// import { initModel } from '@/views/multilevel_menu_example/components/model'
+// import { initCar } from '@/views/multilevel_menu_example/components/car'
 import { mapState } from 'vuex'
 export default {
     components: {
@@ -238,7 +238,7 @@ export default {
         async init() {
             await initMap() // 上海模型
             // initModel() // 人型阴影模型
-            await initCar()
+            // await initCar()
         },
         getList(val) {
             console.log('表格数据更新')
