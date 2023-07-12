@@ -4,6 +4,7 @@ const spritesmithPlugin = require('webpack-spritesmith')
 const terserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const cdnDependencies = require('./dependencies.cdn')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const spritesmithTasks = []
 fs.readdirSync('src/assets/sprites').map(dirname => {
@@ -111,6 +112,10 @@ module.exports = {
                         threshold: 10240, // 对超过10k的数据压缩
                         deleteOriginalAssets: false, // 不删除源文件
                         minRatio: 1 // 压缩比
+                    }),
+                    new BundleAnalyzerPlugin({
+                        analyzerPort: 8889, // 分析页面
+                        openAnalyzer: true // 默认打开分析模块页面
                     })
                 ]
             }
