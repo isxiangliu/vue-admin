@@ -159,7 +159,7 @@ export default {
     width: 100%;
     height: 100%;
     // background-image: url(../assets/images/login-bg.jpg);
-    background-image: url(../assets/images/login-banner.png);
+    background-image: url(../assets/images/home-bg.png);
     background-size: cover;
     background-position: center center;
 }
