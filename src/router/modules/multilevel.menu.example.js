@@ -1,9 +1,9 @@
-import Layout from '@/layout'
-import EmptyLayout from '@/layout/empty'
+// import Layout from '@/layout'
+// import EmptyLayout from '@/layout/empty'
 
 export default {
     path: '/multilevel_menu_example',
-    component: Layout,
+    component: () => import('@/layout'),
     redirect: '/multilevel_menu_example/page',
     name: 'multilevelMenuExample',
     meta: {
@@ -22,7 +22,7 @@ export default {
         {
             path: 'level2',
             name: 'multilevelMenuExample2',
-            component: EmptyLayout,
+            component: () => import('@/layout/empty'),
             redirect: '/multilevel_menu_example/level2/page',
             meta: {
                 title: '导航2'
@@ -39,7 +39,7 @@ export default {
                 {
                     path: 'level3',
                     name: 'multilevelMenuExample2-2',
-                    component: EmptyLayout,
+                    component: () => import('@/layout/empty'),
                     redirect: '/multilevel_menu_example/level2/level3/page1',
                     meta: {
                         title: '导航2-2'

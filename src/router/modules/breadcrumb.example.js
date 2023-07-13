@@ -1,9 +1,9 @@
-import Layout from '@/layout'
-import EmptyLayout from '@/layout/empty'
+// import Layout from '@/layout'
+// import EmptyLayout from '@/layout/empty'
 
 export default {
     path: '/breadcrumb_example',
-    component: Layout,
+    component: () => import('@/layout'),
     redirect: '/breadcrumb_example/list1',
     name: 'breadcrumbExample',
     meta: {
@@ -32,7 +32,7 @@ export default {
         {
             path: 'list2',
             name: 'breadcrumbExampleList2',
-            component: EmptyLayout,
+            component: () => import('@/layout/empty'),
             redirect: '/breadcrumb_example/list2',
             meta: {
                 title: '列表2（层级模式）'
