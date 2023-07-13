@@ -55,6 +55,7 @@ const isGZIP = process.env.VUE_APP_GZIP == 'ON'
 
 const IP = "http://10.1.128.123:5300"
 module.exports = {
+    parallel: false, // thread-loader 与worker-loader有冲突。
     lintOnSave:false,
     publicPath: '',
     productionSourceMap: false,

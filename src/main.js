@@ -18,9 +18,15 @@ Vue.use(cookies)
 import VueMeta from 'vue-meta'
 Vue.use(VueMeta)
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI)
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+// Vue.use(ElementUI)
+
+import {Breadcrumb, BreadcrumbItem, TabPane, Tabs, RadioButton, Row, Col, Image, Dialog, Tree, DatePicker, Pagination, Table, TableColumn, Cascader, Upload, Progress, Icon, DropdownMenu, Avatar, Dropdown, Tooltip, RadioGroup, Drawer, Form, FormItem, Menu, Input, Button, Checkbox, CheckboxGroup, Submenu, MenuItem, Alert, Backtop, DropdownItem } from 'element-ui'
+let arr = [Breadcrumb, BreadcrumbItem, TabPane, Tabs, RadioButton, Row, Col, Image, Dialog, Tree, DatePicker, Pagination, Table, TableColumn, Cascader, Upload, Progress, Icon, DropdownMenu, Avatar, Dropdown, Tooltip, RadioGroup, Drawer, Form, FormItem, Menu, Input, Button, Checkbox, CheckboxGroup, Submenu, MenuItem, Alert, Backtop, DropdownItem]
+for (let i in arr) {
+    Vue.use(arr[i])
+}
 
 import hotkeys from 'hotkeys-js'
 Vue.prototype.$hotkeys = hotkeys
