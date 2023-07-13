@@ -3,8 +3,8 @@ module.exports = {
         '@vue/cli-plugin-babel/preset',
         ["@babel/env", { "modules": false }]
     ],
-    env: {
-        development: {
+    // env: {
+    //     development: {
             plugins: [
                 'dynamic-import-node',
                 [
@@ -15,6 +15,6 @@ module.exports = {
                     }
                 ]
             ]
-    }
-}
+//     }
+// }
 }

@@ -111,7 +111,7 @@ module.exports = {
                         algorithm: 'gzip',
                         test: /\.(js|css|gltf|html|vue)$/, // 匹配文件名
                         threshold: 10240, // 对超过10k的数据压缩
-                        deleteOriginalAssets: true, // 不删除源文件
+                        deleteOriginalAssets: false, // 不删除源文件
                         minRatio: 1 // 压缩比
                     }),
                     new BundleAnalyzerPlugin({
