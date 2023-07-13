@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d212be4"],{aa5c:function(n,t,e){"use strict";e.r(t);var u={name:"EmptyLayout",props:{},data:function(){return{}},created:function(){},mounted:function(){},methods:{}},o=e("2877"),c=Object(o.a)(u,(function(){return(0,this._self._c)("RouterView")}),[],!1,null,null,null);t.default=c.exports}}]);
